@@ -14,8 +14,7 @@ var start_pos : Vector2
 
 
 func _ready():
-	hide()
-	set_process(false)
+	disable()
 
 
 func _process(_delta : float):
@@ -28,12 +27,12 @@ func fire(_direction : Vector2, _position : Vector2):
 	global_position = _position
 	start_pos = _position
 	
-	show()
 	set_process(true)
 	node_collision.set_deferred("disabled", false)
+	show()
+
 
 func disable():
-	node_collision.set_deferred("disabled", true)
-	
 	hide()
+	node_collision.set_deferred("disabled", true)
 	set_process(false)

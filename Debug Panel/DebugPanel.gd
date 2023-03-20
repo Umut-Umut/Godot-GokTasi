@@ -22,7 +22,7 @@ func _ready() -> void:
 	hBoxContainer.add_child(values)
 
 
-func update(_title : String, _value) -> void:
+func update(_title : String, _value = "") -> void:
 	if not title_labels.has(_title):
 		var title_label := Label.new()
 		var value_label := Label.new()
