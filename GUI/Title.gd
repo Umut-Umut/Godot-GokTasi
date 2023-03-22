@@ -5,7 +5,8 @@ onready var button_continue = $VBoxContainer/Continue
 
 
 func _ready():
-	Gui.connect("return_menu", self, "return_menu")
+	pass
+#	Gui.connect("return_menu", self, "return_menu")
 
 
 func return_menu():

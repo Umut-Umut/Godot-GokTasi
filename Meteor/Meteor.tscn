@@ -31,4 +31,6 @@ collision_mask = 8
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ExplosiveDetector"]
 polygon = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
 
+[node name="Chunks" type="Node2D" parent="."]
+
 [connection signal="body_entered" from="ExplosiveDetector" to="." method="_on_ExplosiveDetector_body_entered"]

@@ -1,47 +1,39 @@
 extends Node2D
 
 
-var game_scene : Resource = null
-var current_game : Node2D = null
+onready var gui_scene = preload("res://GUI/GUI.tscn")
+onready var game_scene = preload("res://Game/Game.tscn")
+
+
+var GUI : CanvasLayer
+var GAME : Node2D
 
 
 func _ready():
-	Gui.connect("game_start", self, "game_start")
-	Gui.connect("game_over", self, "game_over")
-	Gui.connect("return_menu", self, "return_menu")
-	Gui.connect("game_continue", self, "game_continue")
+	GUI = gui_scene.instance()
+	GAME = game_scene.instance()
 	
-	game_scene = load("res://Game/Game.tscn")
-	current_game = game_scene.instance()
+	GAME.connect("meteor_destroyed", self, "_meteor_destroyed")
+	GUI.connect("start_game", self, "_start_game")
+	GUI.connect("return_menu", self, "_return_menu")
 	
-	add_child(current_game)
-
-
-func game_start(settings_parameters : Dictionary):
-	if game_scene == null:
-		game_scene = load("res://Game/Game.tscn")
 	
-	if Engine.time_scale == 0:
-		Engine.time_scale = 1
+	add_child(GUI)
+	add_child(GAME)
 	
-	if not current_game == null:
-		current_game.queue_free()
-		current_game = null
 	
-	current_game = game_scene.instance()
-	add_child(current_game)
-	
-	current_game.settings_data = settings_parameters
-	current_game.show()
+	GAME.set_process_input(false)
 
 
-func return_menu():
-	Engine.time_scale = 0
-
-func game_continue():
-	Engine.time_scale = 1
+func _meteor_destroyed():
+	GUI.emit_signal("over_game")
 
 
-func game_over(end_text : String):
-	current_game.queue_free()
-	current_game = null
+func _start_game():
+	GAME.set_process_input(true)
+	GAME._ready()
+
+
+func _return_menu():
+	GAME.set_process_input(false)
+	GAME._ready()

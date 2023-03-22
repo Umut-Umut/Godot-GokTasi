@@ -28,4 +28,5 @@ func _on_HSliderSide_value_changed(value):
 
 
 func _on_ReturnTitle_pressed():
-	Gui.emit_signal("exit_settings", settings_data)
+	pass
+#	Gui.emit_signal("exit_settings", settings_data)

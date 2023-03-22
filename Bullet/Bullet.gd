@@ -7,9 +7,12 @@ class_name Bullet
 onready var node_collision = $CollisionShape2D
 
 
+export var speed : int = 100
+
+
 var velocity : Vector2 = Vector2.ZERO
 var direction : Vector2 = Vector2.ZERO
-var speed : int = 300
+#var speed : int = 300
 var start_pos : Vector2
 
 
@@ -17,7 +20,7 @@ func _ready():
 	disable()
 
 
-func _process(_delta : float):
+func _physics_process(_delta : float):
 	velocity = direction * speed
 	velocity = move_and_slide(velocity)
 

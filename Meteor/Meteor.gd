@@ -1,8 +1,10 @@
 extends StaticBody2D
 
 
-signal clear
+signal destroyed
 
+
+onready var chunks = $Chunks
 
 onready var polygon_explosive = $Explosive
 onready var polygon_meteor = $Meteor
@@ -13,6 +15,8 @@ onready var chunk_scene = preload("res://Chunk/Chunk.tscn")
 
 var new_chunk
 
+var is_created : bool = false
+var is_destroyed : bool = false
 
 # explode fonksiyonunda kopan parcalari bir rigid body ile dusurebilirim.
 
@@ -30,6 +34,12 @@ func _process(delta):
 
 
 func create_meteor(num_segments : int, radius : int):
+	if is_created and not is_destroyed:
+		return
+	is_created = true
+	is_destroyed = false
+	
+	
 	# ChatGPT Sagolsun
 	var points = []
 	var angle_increment = 360.0 / num_segments
@@ -59,7 +69,7 @@ func drop_chunk(chunk_points : PoolVector2Array):
 	new_poly.color = polygon_meteor.color
 	new_poly.polygon = chunk_points
 	new_chunk.add_child(new_poly)
-	call_deferred("add_child", new_chunk)
+	chunks.call_deferred("add_child", new_chunk)
 
 
 func explode(collision_position : Vector2):
@@ -98,7 +108,8 @@ func explode(collision_position : Vector2):
 		polygon_meteor.polygon = PoolVector2Array()
 		polygon_collision.set_deferred("polygon", polygon_meteor.polygon)
 		
-		emit_signal("clear")
+		emit_signal("destroyed")
+		is_destroyed = true
 		
 #		DebugPanel.update("Oyun Bitti")
 

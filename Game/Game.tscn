@@ -5,7 +5,7 @@
 [ext_resource path="res://SpaceShip/SpaceShip.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 320, 32 )
+extents = Vector2( 832, 32 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -28,4 +28,13 @@ collision_mask = 8
 position = Vector2( 320, -288 )
 shape = SubResource( 1 )
 
+[node name="ChunkTravelLimit" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChunkTravelLimit"]
+position = Vector2( 320, 1312 )
+shape = SubResource( 1 )
+
 [connection signal="body_entered" from="BulletTravelLimit" to="." method="_on_BulletTravelLimit_body_entered"]
+[connection signal="body_entered" from="ChunkTravelLimit" to="." method="_on_BulletTravelLimit_body_entered"]
