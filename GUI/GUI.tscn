@@ -1,176 +1,357 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://GUI/GUI.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Font/Arial.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Font/Arial_Title.tres" type="DynamicFont" id=3]
+[ext_resource path="res://GUI/GameOver.gd" type="Script" id=4]
+[ext_resource path="res://GUI/Settings.gd" type="Script" id=5]
+[ext_resource path="res://GUI/Title.gd" type="Script" id=6]
+[ext_resource path="res://Images/Gear.png" type="Texture" id=7]
+[ext_resource path="res://Images/ReturnMenu.png" type="Texture" id=8]
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="Control" type="Control" parent="."]
+[node name="Title" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="Control"]
-modulate = Color( 1, 0.992157, 0, 1 )
+[node name="VBoxContainer" type="VBoxContainer" parent="Title"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1024.0
-margin_bottom = -600.0
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Labels" type="HBoxContainer" parent="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1015.0
-margin_bottom = -600.0
-custom_constants/separation = 9
+[node name="Label" type="Label" parent="Title/VBoxContainer"]
+margin_top = 390.0
+margin_right = 640.0
+margin_bottom = 498.0
+custom_fonts/font = ExtResource( 3 )
+text = "Göktaşı"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LabelsTittle" type="VBoxContainer" parent="Control/Labels"]
-modulate = Color( 0.654902, 1, 0.54902, 1 )
-custom_constants/separation = 9
+[node name="Continue" type="TextureButton" parent="Title/VBoxContainer"]
+visible = false
+margin_top = 434.0
+margin_right = 640.0
+margin_bottom = 498.0
+rect_min_size = Vector2( 0, 64 )
 
-[node name="LabelsValue" type="VBoxContainer" parent="Control/Labels"]
-modulate = Color( 0.658824, 0.635294, 1, 1 )
-margin_left = 9.0
-margin_right = 9.0
-custom_constants/separation = 9
+[node name="Label" type="Label" parent="Title/VBoxContainer/Continue"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Devam Et"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="ButtonsLocation" type="GridContainer" parent="Control"]
+[node name="Start" type="TextureButton" parent="Title/VBoxContainer"]
+margin_top = 502.0
+margin_right = 640.0
+margin_bottom = 566.0
+rect_min_size = Vector2( 0, 64 )
+
+[node name="Label" type="Label" parent="Title/VBoxContainer/Start"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Oyunu Başlat"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="TextureButton" parent="Title/VBoxContainer"]
+visible = false
+margin_top = 536.0
+margin_right = 640.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 64 )
+
+[node name="Label" type="Label" parent="Title/VBoxContainer/Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Ayarlar"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="TextureButton" parent="Title/VBoxContainer"]
+margin_top = 570.0
+margin_right = 640.0
+margin_bottom = 634.0
+rect_min_size = Vector2( 0, 64 )
+
+[node name="Label" type="Label" parent="Title/VBoxContainer/Quit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Çıkış"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Settings" type="TextureButton" parent="Title"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -268.0
-margin_top = -268.0
-columns = 4
+margin_left = -96.0
+margin_top = -96.0
+margin_right = -32.0
+margin_bottom = -32.0
+texture_normal = ExtResource( 7 )
+
+[node name="Settings" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_right = 64.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Settings/VBoxContainer"]
+margin_top = 356.0
+margin_right = 640.0
+margin_bottom = 464.0
+custom_fonts/font = ExtResource( 3 )
+text = "Ayarlar"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Radius" type="HBoxContainer" parent="Settings/VBoxContainer"]
+margin_top = 468.0
+margin_right = 640.0
+margin_bottom = 532.0
+custom_constants/separation = 25
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/VBoxContainer/Radius"]
+margin_left = 63.0
+margin_top = 14.0
+margin_right = 172.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "Yarıçap"
+
+[node name="HSliderRad" type="HSlider" parent="Settings/VBoxContainer/Radius"]
+margin_left = 197.0
+margin_right = 497.0
 margin_bottom = 64.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+rect_min_size = Vector2( 300, 64 )
+min_value = 64.0
+max_value = 500.0
+value = 64.0
 
-[node name="TextureButton2" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 68.0
-margin_right = 132.0
+[node name="SlideValue" type="Label" parent="Settings/VBoxContainer/Radius"]
+margin_left = 522.0
+margin_top = 14.0
+margin_right = 576.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 54, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "000"
+
+[node name="SideNum" type="HBoxContainer" parent="Settings/VBoxContainer"]
+margin_top = 536.0
+margin_right = 640.0
+margin_bottom = 600.0
+custom_constants/separation = 25
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/VBoxContainer/SideNum"]
+margin_left = 26.0
+margin_top = 14.0
+margin_right = 210.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "Kenar Sayısı"
+
+[node name="HSliderSide" type="HSlider" parent="Settings/VBoxContainer/SideNum"]
+margin_left = 235.0
+margin_right = 535.0
 margin_bottom = 64.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+rect_min_size = Vector2( 300, 64 )
+min_value = 12.0
+max_value = 500.0
+value = 12.0
 
-[node name="TextureButton3" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 136.0
-margin_right = 200.0
-margin_bottom = 64.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="SlideValue" type="Label" parent="Settings/VBoxContainer/SideNum"]
+margin_left = 560.0
+margin_top = 14.0
+margin_right = 614.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 54, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "000"
 
-[node name="TextureButton4" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 204.0
-margin_right = 268.0
-margin_bottom = 64.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="ReturnTitle" type="TextureButton" parent="Settings/VBoxContainer"]
+margin_top = 604.0
+margin_right = 640.0
+margin_bottom = 668.0
+rect_min_size = Vector2( 0, 64 )
 
-[node name="TextureButton5" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_top = 68.0
-margin_right = 64.0
-margin_bottom = 132.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="Label" type="Label" parent="Settings/VBoxContainer/ReturnTitle"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Menüye Dön"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TextureButton6" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 68.0
-margin_top = 68.0
-margin_right = 132.0
-margin_bottom = 132.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="GameOver" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TextureButton7" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 136.0
-margin_top = 68.0
-margin_right = 200.0
-margin_bottom = 132.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TextureButton8" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 204.0
-margin_top = 68.0
-margin_right = 268.0
-margin_bottom = 132.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="Title" type="Label" parent="GameOver/VBoxContainer"]
+margin_top = 356.0
+margin_right = 640.0
+margin_bottom = 464.0
+custom_fonts/font = ExtResource( 3 )
+text = "Oyun Bitti"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TextureButton9" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_top = 136.0
-margin_right = 64.0
-margin_bottom = 200.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="Restart" type="TextureButton" parent="GameOver/VBoxContainer"]
+margin_top = 468.0
+margin_right = 640.0
+margin_bottom = 532.0
+rect_min_size = Vector2( 0, 64 )
 
-[node name="TextureButton10" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 68.0
-margin_top = 136.0
-margin_right = 132.0
-margin_bottom = 200.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="Label" type="Label" parent="GameOver/VBoxContainer/Restart"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Tekrar Oyna"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TextureButton11" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 136.0
-margin_top = 136.0
-margin_right = 200.0
-margin_bottom = 200.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="ReturnTitle" type="TextureButton" parent="GameOver/VBoxContainer"]
+margin_top = 536.0
+margin_right = 640.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 64 )
 
-[node name="TextureButton12" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 204.0
-margin_top = 136.0
-margin_right = 268.0
-margin_bottom = 200.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="Label" type="Label" parent="GameOver/VBoxContainer/ReturnTitle"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Menüye Dön"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TextureButton13" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_top = 204.0
-margin_right = 64.0
-margin_bottom = 268.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="Quit" type="TextureButton" parent="GameOver/VBoxContainer"]
+visible = false
+margin_top = 604.0
+margin_right = 640.0
+margin_bottom = 668.0
+rect_min_size = Vector2( 0, 64 )
 
-[node name="TextureButton14" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 68.0
-margin_top = 204.0
-margin_right = 132.0
-margin_bottom = 268.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="Label" type="Label" parent="GameOver/VBoxContainer/Quit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Çıkış"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TextureButton15" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 136.0
-margin_top = 204.0
-margin_right = 200.0
-margin_bottom = 268.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="InGame" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TextureButton16" type="TextureButton" parent="Control/ButtonsLocation"]
-margin_left = 204.0
-margin_top = 204.0
-margin_right = 268.0
-margin_bottom = 268.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 2 )
+[node name="ReturnTitle" type="TextureButton" parent="InGame"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -96.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = 96.0
+texture_normal = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="InGame/ReturnTitle"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Menu"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="Title/VBoxContainer/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="pressed" from="Title/VBoxContainer/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="Title/VBoxContainer/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="pressed" from="Title/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="Title/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/Radius/HSliderRad" to="Settings" method="_on_HSliderRad_value_changed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/SideNum/HSliderSide" to="Settings" method="_on_HSliderSide_value_changed"]
+[connection signal="pressed" from="Settings/VBoxContainer/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
+[connection signal="pressed" from="Settings/VBoxContainer/ReturnTitle" to="Settings" method="_on_ReturnTitle_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Restart" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]

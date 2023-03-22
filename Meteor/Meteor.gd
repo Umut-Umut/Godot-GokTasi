@@ -1,11 +1,16 @@
 extends StaticBody2D
 
 
+signal clear
+
+
 onready var polygon_explosive = $Explosive
 onready var polygon_meteor = $Meteor
 onready var polygon_meteor_background = $Meteor/Bacground
 onready var polygon_collision = $ExplosiveDetector/CollisionPolygon2D
 onready var chunk_scene = preload("res://Chunk/Chunk.tscn")
+
+
 var new_chunk
 
 
@@ -17,12 +22,15 @@ var explosive_local_points : PoolVector2Array
 
 
 func _ready():
-#	polygon_explosive.hide()
+	polygon_explosive.hide()
 	
+
+func _process(delta):
+	rotate(delta)
+
+
+func create_meteor(num_segments : int, radius : int):
 	# ChatGPT Sagolsun
-	var num_segments = 12
-	var radius = 192
-	
 	var points = []
 	var angle_increment = 360.0 / num_segments
 
@@ -43,10 +51,6 @@ func _ready():
 	
 	
 	explosive_local_points = polygon_explosive.polygon
-	
-
-func _process(delta):
-	rotate(delta)
 
 
 func drop_chunk(chunk_points : PoolVector2Array):
@@ -55,7 +59,7 @@ func drop_chunk(chunk_points : PoolVector2Array):
 	new_poly.color = polygon_meteor.color
 	new_poly.polygon = chunk_points
 	new_chunk.add_child(new_poly)
-	call_deferred("add_child", new_chunk)	
+	call_deferred("add_child", new_chunk)
 
 
 func explode(collision_position : Vector2):
@@ -73,7 +77,7 @@ func explode(collision_position : Vector2):
 	
 	
 	if clip_polygon.size() > 0:
-		DebugPanel.update("clip_polygon_size", clip_polygon.size())
+#		DebugPanel.update("clip_polygon_size", clip_polygon.size())
 		polygon_meteor.polygon = clip_polygon[0]
 		polygon_collision.set_deferred("polygon", clip_polygon[0])
 
@@ -93,8 +97,18 @@ func explode(collision_position : Vector2):
 		
 		polygon_meteor.polygon = PoolVector2Array()
 		polygon_collision.set_deferred("polygon", polygon_meteor.polygon)
-		DebugPanel.update("Oyun Bitti")
-	
+		
+		emit_signal("clear")
+		
+#		DebugPanel.update("Oyun Bitti")
+
+
+func _on_ExplosiveDetector_body_entered(body):
+	if body is Bullet:
+		explode(body.global_position)
+		body.disable()
+		
+
 	
 #	var polygon_rotated_points = []
 #	for p in polygon_meteor.polygon:
@@ -142,7 +156,5 @@ func explode(collision_position : Vector2):
 #		polygon_explosive.hide()
 
 
-func _on_ExplosiveDetector_body_entered(body):
-	if body is Bullet:
-		explode(body.global_position)
-		body.disable()
+
+
