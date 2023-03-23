@@ -16,6 +16,9 @@ var direction : Vector2 = Vector2.ZERO
 var start_pos : Vector2
 
 
+var is_disabled : bool
+
+
 func _ready():
 	disable()
 
@@ -33,9 +36,13 @@ func fire(_direction : Vector2, _position : Vector2):
 	set_process(true)
 	node_collision.set_deferred("disabled", false)
 	show()
+	
+	is_disabled = false
 
 
-func disable():
-	hide()
+func disable(is_hide : bool = true):
+	if is_hide: hide()
 	node_collision.set_deferred("disabled", true)
 	set_process(false)
+	
+	is_disabled = true

@@ -22,19 +22,22 @@ signal meteor_destroyed
 #
 
 
-onready var ship = $SpaceShip
+onready var ship : SpaceShip = $SpaceShip
 onready var meteor = $Meteor
+onready var camera = $Camera2D
 
 
 func _ready():
 	if meteor.is_connected("destroyed", self, "_meteor_destroyed") == false:
 		meteor.connect("destroyed", self, "_meteor_destroyed")
 	
-	meteor.create_meteor(12, 64)
+	meteor.create_meteor(12, 64 * 2)
 
 
 func _meteor_destroyed():
 	emit_signal("meteor_destroyed")
+	
+	ship.clear_bullets(false)
 
 
 func set_process_input(state : bool):

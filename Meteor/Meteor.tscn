@@ -13,7 +13,7 @@ polygon = PoolVector2Array( 0, -16, -16, 0, 0, 16, 16, 0 )
 
 [node name="Bacground" type="Polygon2D" parent="Meteor"]
 z_index = -1
-color = Color( 0.588235, 0.682353, 0.737255, 1 )
+color = Color( 0.505882, 0.584314, 0.627451, 1 )
 
 [node name="Explosive" type="Polygon2D" parent="."]
 visible = false

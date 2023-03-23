@@ -30,16 +30,22 @@ _global_script_classes=[ {
 "path": "res://Lib/MyVector.gd"
 }, {
 "base": "Reference",
-"class": "PolygonLib",
+"class": "PolygonMath",
 "language": "GDScript",
 "path": "res://Lib/Polygon.gd"
+}, {
+"base": "StaticBody2D",
+"class": "SpaceShip",
+"language": "GDScript",
+"path": "res://SpaceShip/SpaceShip.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
 "Chunk": "",
 "DPanel": "",
 "MyVector": "",
-"PolygonLib": ""
+"PolygonMath": "",
+"SpaceShip": ""
 }
 
 [application]
@@ -52,10 +58,11 @@ config/icon="res://icon.png"
 
 window/size/width=640
 window/size/height=1024
+window/size/resizable=false
 window/size/fullscreen=true
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
-window/stretch/aspect="keep"
+window/stretch/aspect="expand"
 
 [gui]
 

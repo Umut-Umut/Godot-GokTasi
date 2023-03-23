@@ -15,6 +15,12 @@ onready var chunk_scene = preload("res://Chunk/Chunk.tscn")
 
 var new_chunk
 
+var big_polygon : PoolVector2Array
+var big_polygon_area : int = 0
+var polygon_area : int = 0
+var big_polygon_index : int = 0
+
+var is_clockwise : bool = false
 var is_created : bool = false
 var is_destroyed : bool = false
 
@@ -28,8 +34,10 @@ var explosive_local_points : PoolVector2Array
 func _ready():
 	polygon_explosive.hide()
 	
+	connect("destroyed", self, "_meteor_destroyed")
+	
 
-func _process(delta):
+func _physics_process(delta):
 	rotate(delta)
 
 
@@ -75,11 +83,7 @@ func drop_chunk(chunk_points : PoolVector2Array):
 func explode(collision_position : Vector2):
 	polygon_explosive.global_position = collision_position
 	
-#
-#	var local_explosive : PoolVector2Array
-#	for p in polygon_explosive.polygon:
-#		local_explosive.append(p + polygon_explosive.position)
-#
+	
 	for i in range(explosive_local_points.size()):
 		explosive_local_points[i] = polygon_explosive.polygon[i] + polygon_explosive.position
 
@@ -87,31 +91,34 @@ func explode(collision_position : Vector2):
 	
 	
 	if clip_polygon.size() > 0:
-#		DebugPanel.update("clip_polygon_size", clip_polygon.size())
-		polygon_meteor.polygon = clip_polygon[0]
-		polygon_collision.set_deferred("polygon", clip_polygon[0])
+		big_polygon_area = 0
+		for i in range(clip_polygon.size()):
+			polygon_area = PolygonMath.get_area(clip_polygon[i], Geometry.is_polygon_clockwise(clip_polygon[i]))
+			if polygon_area > big_polygon_area:
+				big_polygon_area = polygon_area
+				big_polygon_index = i
+		
+		
+		polygon_meteor.polygon = clip_polygon[big_polygon_index]
+		polygon_collision.set_deferred("polygon", clip_polygon[big_polygon_index])
 
-		for i in range(1, clip_polygon.size()):
+		for i in range(0, clip_polygon.size()):
+			if i == big_polygon_index:
+				continue
 			drop_chunk(clip_polygon[i])
 		
-#		for i in range(1, clip_polygon.size()):
-#			new_chunk = chunk_scene.instance()
-#			var new_poly = Polygon2D.new()
-#			new_poly.color = polygon_meteor.color
-#			new_poly.polygon = clip_polygon[i]
-#			new_chunk.add_child(new_poly)
-#			call_deferred("add_child", new_chunk)
-		
+		if PolygonMath.get_area(clip_polygon[big_polygon_index], Geometry.is_polygon_clockwise(clip_polygon[big_polygon_index])) < 100:			
+			emit_signal("destroyed")
 	else:
-		drop_chunk(polygon_meteor.polygon)
-		
-		polygon_meteor.polygon = PoolVector2Array()
-		polygon_collision.set_deferred("polygon", polygon_meteor.polygon)
-		
 		emit_signal("destroyed")
-		is_destroyed = true
-		
-#		DebugPanel.update("Oyun Bitti")
+
+
+func _meteor_destroyed():
+	drop_chunk(polygon_meteor.polygon)
+	polygon_meteor.polygon = PoolVector2Array()
+	polygon_collision.set_deferred("polygon", polygon_meteor.polygon)
+	
+	is_destroyed = true
 
 
 func _on_ExplosiveDetector_body_entered(body):

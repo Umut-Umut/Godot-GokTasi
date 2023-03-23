@@ -13,6 +13,7 @@ func _ready():
 	GUI = gui_scene.instance()
 	GAME = game_scene.instance()
 	
+	
 	GAME.connect("meteor_destroyed", self, "_meteor_destroyed")
 	GUI.connect("start_game", self, "_start_game")
 	GUI.connect("return_menu", self, "_return_menu")

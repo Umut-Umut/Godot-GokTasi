@@ -1,6 +1,9 @@
 extends StaticBody2D
 
 
+class_name SpaceShip
+
+
 onready var node_bullets : Node2D = $Bullets
 onready var scene_bullet := preload("res://Bullet/Bullet.tscn").instance()
 
@@ -19,9 +22,9 @@ func _ready():
 		bullets.append(bullet)
 
 
-func clear_bullets():
+func clear_bullets(is_hide : bool = true):
 	for b in bullets:
-		b.disable()
+		b.disable(is_hide)
 
 
 func _input(event):
