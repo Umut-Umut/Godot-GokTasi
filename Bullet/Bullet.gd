@@ -14,18 +14,23 @@ var velocity : Vector2 = Vector2.ZERO
 var direction : Vector2 = Vector2.ZERO
 #var speed : int = 300
 var start_pos : Vector2
+var collide : KinematicCollision2D
 
 
-var is_disabled : bool
+var is_disabled : bool = false
 
 
 func _ready():
 	disable()
 
 
-func _physics_process(_delta : float):
+func _physics_process(delta : float):
 	velocity = direction * speed
-	velocity = move_and_slide(velocity)
+	collide = move_and_collide(velocity * delta)
+
+	if collide:
+		collide.collider.collision(collide.position)
+		disable()
 
 
 func fire(_direction : Vector2, _position : Vector2):
@@ -33,16 +38,27 @@ func fire(_direction : Vector2, _position : Vector2):
 	global_position = _position
 	start_pos = _position
 	
-	set_process(true)
-	node_collision.set_deferred("disabled", false)
 	show()
 	
+	set_physics_process(true)
+	
+	if node_collision.disabled:
+		node_collision.set_deferred("disabled", false)
+	
 	is_disabled = false
+	
+	$Timer.start()
 
 
 func disable(is_hide : bool = true):
-	if is_hide: hide()
+	if is_hide:
+		hide()
+		set_physics_process(false)
 	node_collision.set_deferred("disabled", true)
-	set_process(false)
 	
 	is_disabled = true
+	$Timer.stop()
+
+
+func _on_Timer_timeout():
+	disable()

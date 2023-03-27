@@ -54,6 +54,10 @@ config/name="Goktasi"
 run/main_scene="res://Main/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+DebugPanel="*res://Debug Panel/DebugPanel.tscn"
+
 [display]
 
 window/size/width=640

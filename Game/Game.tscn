@@ -5,7 +5,7 @@
 [ext_resource path="res://SpaceShip/SpaceShip.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 832, 32 )
+extents = Vector2( 832, 608 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -20,17 +20,23 @@ position = Vector2( 0, -320 )
 position = Vector2( 0, 448 )
 
 [node name="BulletTravelLimit" type="Area2D" parent="."]
-position = Vector2( 0, -800 )
+position = Vector2( 0, -1440 )
 collision_layer = 4
 collision_mask = 8
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletTravelLimit"]
 shape = SubResource( 1 )
 
 [node name="ChunkTravelLimit" type="Area2D" parent="."]
-position = Vector2( 0, 808 )
+position = Vector2( 0, 1568 )
 collision_layer = 32
 collision_mask = 16
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChunkTravelLimit"]
 shape = SubResource( 1 )

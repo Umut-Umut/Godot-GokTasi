@@ -3,6 +3,7 @@ extends Node2D
 
 signal meteor_destroyed
 
+
 #
 # Hala polygon un gorunmez olmasi gibi hatalar soz konusu. Kodu temizleyince umarim duzelir.
 # Sanirim ayni anda birden fazla parcanin dusurulebilmesiyle bu sorun duzeldi.

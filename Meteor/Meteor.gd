@@ -8,8 +8,9 @@ onready var chunks = $Chunks
 
 onready var polygon_explosive = $Explosive
 onready var polygon_meteor = $Meteor
+onready var polygon_collision = $CollisionPolygon2D
 onready var polygon_meteor_background = $Meteor/Bacground
-onready var polygon_collision = $ExplosiveDetector/CollisionPolygon2D
+onready var polygon_area_collision = $ExplosiveDetector/CollisionPolygon2D
 onready var chunk_scene = preload("res://Chunk/Chunk.tscn")
 
 
@@ -41,6 +42,13 @@ func _physics_process(delta):
 	rotate(delta)
 
 
+func collision(collision_position : Vector2):
+	explode(collision_position)
+#	if body is Bullet:
+#		body.disable()
+#		explode(body.global_position)
+
+
 func create_meteor(num_segments : int, radius : int):
 	if is_created and not is_destroyed:
 		return
@@ -65,9 +73,19 @@ func create_meteor(num_segments : int, radius : int):
 	# Çizgi segmentlerini ayarla
 	polygon_meteor.polygon = points
 	polygon_collision.polygon = points
+#	polygon_area_collision.polygon = points
 	polygon_meteor_background.polygon = points
 	
 	
+	radius = 16
+	points.clear()
+	for i in range(num_segments):
+		var angle = deg2rad(angle_increment * i)
+		var x = radius * cos(angle)
+		var y = radius * sin(angle)
+		points.append(Vector2(x, y))
+	
+	polygon_explosive.polygon = points
 	explosive_local_points = polygon_explosive.polygon
 
 
@@ -100,14 +118,14 @@ func explode(collision_position : Vector2):
 		
 		
 		polygon_meteor.polygon = clip_polygon[big_polygon_index]
-		polygon_collision.set_deferred("polygon", clip_polygon[big_polygon_index])
+		polygon_collision.polygon = clip_polygon[big_polygon_index]
+#		polygon_area_collision.set_deferred("polygon", clip_polygon[big_polygon_index])
 
 		for i in range(0, clip_polygon.size()):
-			if i == big_polygon_index:
-				continue
-			drop_chunk(clip_polygon[i])
+			if not i == big_polygon_index:
+				drop_chunk(clip_polygon[i])
 		
-		if PolygonMath.get_area(clip_polygon[big_polygon_index], Geometry.is_polygon_clockwise(clip_polygon[big_polygon_index])) < 100:			
+		if PolygonMath.get_area(clip_polygon[big_polygon_index], Geometry.is_polygon_clockwise(clip_polygon[big_polygon_index])) < 1000:			
 			emit_signal("destroyed")
 	else:
 		emit_signal("destroyed")
@@ -116,15 +134,16 @@ func explode(collision_position : Vector2):
 func _meteor_destroyed():
 	drop_chunk(polygon_meteor.polygon)
 	polygon_meteor.polygon = PoolVector2Array()
-	polygon_collision.set_deferred("polygon", polygon_meteor.polygon)
+	polygon_area_collision.set_deferred("polygon", polygon_meteor.polygon)
 	
 	is_destroyed = true
 
 
 func _on_ExplosiveDetector_body_entered(body):
 	if body is Bullet:
-		explode(body.global_position)
+		return
 		body.disable()
+		explode(body.global_position)
 		
 
 	

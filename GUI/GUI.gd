@@ -297,3 +297,7 @@ func _on_Quit_pressed():
 #
 #func on_selected_location(button_index):
 #	emit_signal("location_selected", button_index)
+
+
+func _on_ReturnTitle_mouse_entered():
+	DebugPanel.update("Mouse Entered")
