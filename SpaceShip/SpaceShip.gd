@@ -10,7 +10,7 @@ onready var scene_bullet := preload("res://Bullet/Bullet.tscn")
 
 var bullets : Array = []
 var bullet_count : int = 0
-var bullets_size : int = 500
+var bullets_size : int = 50
 
 
 func _ready():
@@ -44,5 +44,4 @@ func _on_Timer_timeout():
 	if is_processing_input():
 		bullets[bullet_count].fire(Vector2.UP, global_position)
 		bullet_count += 1
-		DebugPanel.update("bullet count", bullet_count)
 		bullet_count %= bullets_size

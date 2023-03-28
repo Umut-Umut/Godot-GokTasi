@@ -54,7 +54,9 @@ func disable(is_hide : bool = true):
 	if is_hide:
 		hide()
 		set_physics_process(false)
-	node_collision.set_deferred("disabled", true)
+	
+	if is_disabled:
+		node_collision.set_deferred("disabled", true)
 	
 	is_disabled = true
 	$Timer.stop()

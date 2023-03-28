@@ -25,7 +25,6 @@ signal meteor_destroyed
 
 onready var ship : SpaceShip = $SpaceShip
 onready var meteor = $Meteor
-onready var camera = $Camera2D
 
 
 func _ready():

@@ -54,38 +54,14 @@ func create_meteor(num_segments : int, radius : int):
 		return
 	is_created = true
 	is_destroyed = false
-	
-	
-	# ChatGPT Sagolsun
-	var points = []
-	var angle_increment = 360.0 / num_segments
 
-	# Dairenin noktalarını hesapla
-	for i in range(num_segments):
-		var angle = deg2rad(angle_increment * i)
-		var x = radius * cos(angle)
-		var y = radius * sin(angle)
-		points.append(Vector2(x, y))
 
-	# Son noktayı ekleyin, çizginin tamamlanmasını sağlamak için
-	points.append(points[0])
-
-	# Çizgi segmentlerini ayarla
-	polygon_meteor.polygon = points
-	polygon_collision.polygon = points
-#	polygon_area_collision.polygon = points
-	polygon_meteor_background.polygon = points
+	polygon_meteor.polygon = PolygonMath.calc_circle_points(num_segments, radius)
+	polygon_collision.polygon = polygon_meteor.polygon
+	polygon_meteor_background.polygon = polygon_meteor.polygon
 	
 	
-	radius = 16
-	points.clear()
-	for i in range(num_segments):
-		var angle = deg2rad(angle_increment * i)
-		var x = radius * cos(angle)
-		var y = radius * sin(angle)
-		points.append(Vector2(x, y))
-	
-	polygon_explosive.polygon = points
+	polygon_explosive.polygon = PolygonMath.calc_circle_points(num_segments, radius/4)
 	explosive_local_points = polygon_explosive.polygon
 
 
@@ -111,21 +87,24 @@ func explode(collision_position : Vector2):
 	if clip_polygon.size() > 0:
 		big_polygon_area = 0
 		for i in range(clip_polygon.size()):
-			polygon_area = PolygonMath.get_area(clip_polygon[i], Geometry.is_polygon_clockwise(clip_polygon[i]))
+			polygon_area = PolygonMath.get_area(clip_polygon[i])
 			if polygon_area > big_polygon_area:
 				big_polygon_area = polygon_area
 				big_polygon_index = i
+			
+		for i in range(clip_polygon.size()):
+			if i != big_polygon_index:
+				drop_chunk(clip_polygon[i])
 		
 		
 		polygon_meteor.polygon = clip_polygon[big_polygon_index]
 		polygon_collision.polygon = clip_polygon[big_polygon_index]
-#		polygon_area_collision.set_deferred("polygon", clip_polygon[big_polygon_index])
 
-		for i in range(0, clip_polygon.size()):
-			if not i == big_polygon_index:
-				drop_chunk(clip_polygon[i])
+#		for i in range(0, clip_polygon.size()):
+#			if not i == big_polygon_index:
+#				drop_chunk(clip_polygon[i])
 		
-		if PolygonMath.get_area(clip_polygon[big_polygon_index], Geometry.is_polygon_clockwise(clip_polygon[big_polygon_index])) < 1000:			
+		if PolygonMath.get_area(clip_polygon[big_polygon_index]) < 1000:			
 			emit_signal("destroyed")
 	else:
 		emit_signal("destroyed")

@@ -1,7 +1,8 @@
 class_name PolygonMath
 
 
-static func get_area(points : PoolVector2Array, is_clockwise : bool) -> int:
+static func get_area(points : PoolVector2Array) -> int:
+	var is_clockwise : bool = Geometry.is_polygon_clockwise(points)
 	var points_size : int = points.size()
 	var ii : int
 	var area : int = 0
@@ -14,3 +15,18 @@ static func get_area(points : PoolVector2Array, is_clockwise : bool) -> int:
 			area += (points[i].x * points[ii].y) - (points[ii].x * points[i].y)
 	
 	return area / 2
+
+
+static func calc_circle_points(num_segments : int, radius : int):
+	var points : PoolVector2Array
+	var angle_increment = 360.0 / num_segments
+	
+	
+	for i in range(num_segments):
+		var angle = deg2rad(angle_increment * i)
+		var x = radius * cos(angle)
+		var y = radius * sin(angle)
+		points.append(Vector2(x, y))
+
+	
+	return points
