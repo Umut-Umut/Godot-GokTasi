@@ -8,7 +8,7 @@
 [ext_resource path="res://GUI/Title.gd" type="Script" id=6]
 [ext_resource path="res://Images/Gear.png" type="Texture" id=7]
 [ext_resource path="res://Images/ReturnMenu.png" type="Texture" id=8]
-[ext_resource path="res://Images/Kapi.png" type="Texture" id=9]
+[ext_resource path="res://Images/Exit_2.png" type="Texture" id=9]
 [ext_resource path="res://GUI/InGame.gd" type="Script" id=10]
 
 [node name="GUI" type="CanvasLayer"]
@@ -127,21 +127,21 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -96.0
-margin_top = -96.0
-margin_right = -32.0
-margin_bottom = -32.0
+margin_left = -128.0
+margin_top = -128.0
 texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 3
 
 [node name="Quit" type="TextureButton" parent="Title"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 32.0
-margin_top = -96.0
-margin_right = 96.0
-margin_bottom = -32.0
+margin_top = -128.0
+margin_right = 128.0
 rect_min_size = Vector2( 0, 64 )
 texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
