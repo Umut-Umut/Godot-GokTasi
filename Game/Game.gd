@@ -49,11 +49,12 @@ func reset():
 		ship.clear_bullets(false)
 		meteor.create_meteor()
 	elif meteor.is_created:
+		pass
 		ship.clear_bullets(false)
 
 
 func _meteor_destroyed():
-	DebugPanel.update("Game | _meteor_destroyed")
+#	DebugPanel.update("Game | _meteor_destroyed")
 	emit_signal("meteor_destroyed")
 	
 	ship.clear_bullets(false)

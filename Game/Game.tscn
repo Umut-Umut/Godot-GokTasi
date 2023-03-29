@@ -24,6 +24,8 @@ position = Vector2( 0, 448 )
 position = Vector2( 0, -1440 )
 collision_layer = 4
 collision_mask = 8
+monitoring = false
+monitorable = false
 __meta__ = {
 "_edit_group_": true
 }

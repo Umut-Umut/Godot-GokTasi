@@ -34,9 +34,11 @@ func _input(event):
 
 
 func fire():
-	bullets[bullet_count].fire(Vector2.UP, global_position)
+	bullets[bullet_count].enable(Vector2.UP, global_position)
 	bullet_count += 1
 	bullet_count %= bullets_size
+	
+	DebugPanel.update("Counter", bullet_count)
 
 
 func set_process_input(state : bool):
@@ -46,11 +48,11 @@ func set_process_input(state : bool):
 
 
 func _on_Timer_timeout():
-	if is_processing_input():
-		fire()
+	fire()
 
 
 # INTERFACE
 func clear_bullets(is_hide : bool = true):
 	for b in bullets:
-		b.disable(is_hide)
+		if not b.is_disabled:
+			b.disable(is_hide)

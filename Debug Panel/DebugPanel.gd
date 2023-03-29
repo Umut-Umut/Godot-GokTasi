@@ -17,7 +17,7 @@ var title_labels : Dictionary = {}
 
 
 func _ready() -> void:
-	titles.modulate = Color.bisque
+	titles.modulate = Color.green
 	
 	add_child(labels)
 	labels.add_child(hBoxContainer)

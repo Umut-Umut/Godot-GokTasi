@@ -33,14 +33,12 @@ func _physics_process(delta : float):
 		disable()
 
 
-func fire(_direction : Vector2, _position : Vector2):
+func enable(_direction : Vector2, _position : Vector2):
 	direction = _direction
 	global_position = _position
 	start_pos = _position
 	
 	show()
-	
-	set_physics_process(true)
 	
 	if node_collision.disabled:
 		node_collision.set_deferred("disabled", false)
@@ -48,18 +46,24 @@ func fire(_direction : Vector2, _position : Vector2):
 	is_disabled = false
 	
 	$Timer.start()
+	
+	set_deferred("physics_process", true)
+#	set_physics_process(true)
 
 
 func disable(is_hide : bool = true):
 	if is_hide:
 		hide()
-		set_physics_process(false)
-	
-	if not is_disabled:
+
+	if not node_collision.disabled:
+#		node_collision.disabled = true
 		node_collision.set_deferred("disabled", true)
 	
 	is_disabled = true
 	$Timer.stop()
+
+	set_deferred("physics_process", false)
+#	set_physics_process(not is_hide)
 
 
 func _on_Timer_timeout():

@@ -37,6 +37,8 @@ var explosive_local_points : PoolVector2Array
 
 
 func _ready():
+	randomize()
+	
 	polygon_explosive.hide()
 	
 	connect("destroyed", self, "_meteor_destroyed")
@@ -56,8 +58,9 @@ func collision(collision_position : Vector2):
 
 
 func create_meteor():
-	if not is_destroyed:
-		DebugPanel.update("Meteor Henuz Yok Edilmedi")
+	if not is_destroyed and is_created:
+		return
+#		DebugPanel.update("Meteor Henuz Yok Edilmedi")
 #	if is_created and not is_destroyed:
 #		return
 #	is_created = true
@@ -81,9 +84,13 @@ func create_meteor():
 func drop_chunk(chunk_points : PoolVector2Array):
 	new_chunk = chunk_scene.instance()
 	var new_poly = Polygon2D.new()
+	
 	new_poly.color = polygon_meteor.color
 	new_poly.polygon = chunk_points
+	
 	new_chunk.add_child(new_poly)
+	
+	new_chunk.weight = rand_range(9.8, 90.8)
 	chunks.call_deferred("add_child", new_chunk)
 
 
@@ -128,7 +135,7 @@ func set_meteor_polygon(points : PoolVector2Array, is_update_back : bool = false
 
 
 func _meteor_destroyed():
-	DebugPanel.update("Meteor | _meteor_destroyed")
+#	DebugPanel.update("Meteor | _meteor_destroyed")
 	drop_chunk(polygon_meteor.polygon)
 	set_meteor_polygon(PoolVector2Array())
 	
