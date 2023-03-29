@@ -56,12 +56,13 @@ func create_meteor(num_segments : int, radius : int):
 	is_destroyed = false
 
 
-	polygon_meteor.polygon = PolygonMath.calc_circle_points(num_segments, radius)
-	polygon_collision.polygon = polygon_meteor.polygon
-	polygon_meteor_background.polygon = polygon_meteor.polygon
+	set_meteor_polygon(PolygonMath.calc_circle_points(num_segments, radius), true)
+#	polygon_meteor.polygon = PolygonMath.calc_circle_points(num_segments, radius)
+#	polygon_collision.polygon = polygon_meteor.polygon
+#	polygon_meteor_background.polygon = polygon_meteor.polygon
 	
 	
-	polygon_explosive.polygon = PolygonMath.calc_circle_points(num_segments, radius/4)
+	polygon_explosive.polygon = PolygonMath.calc_circle_points(num_segments, radius/5)
 	explosive_local_points = polygon_explosive.polygon
 
 
@@ -97,12 +98,8 @@ func explode(collision_position : Vector2):
 				drop_chunk(clip_polygon[i])
 		
 		
-		polygon_meteor.polygon = clip_polygon[big_polygon_index]
-		polygon_collision.polygon = clip_polygon[big_polygon_index]
-
-#		for i in range(0, clip_polygon.size()):
-#			if not i == big_polygon_index:
-#				drop_chunk(clip_polygon[i])
+		set_meteor_polygon(clip_polygon[big_polygon_index])
+		
 		
 		if PolygonMath.get_area(clip_polygon[big_polygon_index]) < 1000:			
 			emit_signal("destroyed")
@@ -110,10 +107,18 @@ func explode(collision_position : Vector2):
 		emit_signal("destroyed")
 
 
+func set_meteor_polygon(points : PoolVector2Array, is_update_back : bool = false):
+	polygon_meteor.polygon = points
+	polygon_collision.polygon = points
+	
+	if is_update_back:
+		polygon_meteor_background.polygon = points
+
+
 func _meteor_destroyed():
 	drop_chunk(polygon_meteor.polygon)
-	polygon_meteor.polygon = PoolVector2Array()
-	polygon_area_collision.set_deferred("polygon", polygon_meteor.polygon)
+	set_meteor_polygon(PoolVector2Array())
+#	polygon_area_collision.set_deferred("polygon", polygon_meteor.polygon)
 	
 	is_destroyed = true
 

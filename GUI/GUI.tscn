@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://GUI/GUI.gd" type="Script" id=1]
 [ext_resource path="res://Font/Arial.tres" type="DynamicFont" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Images/Gear.png" type="Texture" id=7]
 [ext_resource path="res://Images/ReturnMenu.png" type="Texture" id=8]
 [ext_resource path="res://Images/Kapi.png" type="Texture" id=9]
+[ext_resource path="res://GUI/InGame.gd" type="Script" id=10]
 
 [node name="GUI" type="CanvasLayer"]
 layer = 2
@@ -357,11 +358,13 @@ __meta__ = {
 [node name="InGame" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ReturnTitle" type="TextureButton" parent="InGame"]
+process_priority = -2
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -128.0
@@ -396,5 +399,5 @@ valign = 1
 [connection signal="pressed" from="GameOver/VBoxContainer/Restart" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="GameOver/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="GameOver/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
-[connection signal="mouse_entered" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_mouse_entered"]
+[connection signal="button_down" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
 [connection signal="pressed" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]

@@ -4,6 +4,9 @@ extends CanvasLayer
 class_name DPanel
 
 
+export (bool) var is_debug = true
+
+
 var hBoxContainer = HBoxContainer.new()
 var labels = PanelContainer.new()
 var titles = VBoxContainer.new()
@@ -14,7 +17,7 @@ var title_labels : Dictionary = {}
 
 
 func _ready() -> void:
-	titles.modulate = Color.green
+	titles.modulate = Color.bisque
 	
 	add_child(labels)
 	labels.add_child(hBoxContainer)
@@ -23,6 +26,8 @@ func _ready() -> void:
 
 
 func update(_title : String, _value = "") -> void:
+	if not is_debug:
+		return
 	if not title_labels.has(_title):
 		var title_label := Label.new()
 		var value_label := Label.new()

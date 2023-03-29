@@ -55,7 +55,7 @@ func disable(is_hide : bool = true):
 		hide()
 		set_physics_process(false)
 	
-	if is_disabled:
+	if not is_disabled:
 		node_collision.set_deferred("disabled", true)
 	
 	is_disabled = true

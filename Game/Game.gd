@@ -34,10 +34,20 @@ func _ready():
 	meteor.create_meteor(12, 64 * 2)
 
 
+func _input(event):
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			DebugPanel.update("Game Input")
+
+
 func _meteor_destroyed():
 	emit_signal("meteor_destroyed")
 	
 	ship.clear_bullets(false)
+
+
+func _screen_touch():
+	ship.fire()
 
 
 func set_process_input(state : bool):

@@ -1,11 +1,15 @@
 extends CanvasLayer
 
 
+class_name GraphicUI
+
+
 signal start_game
 signal return_game
 signal settings
 signal return_menu
 signal over_game
+signal screen_touch
 
 
 onready var title = $Title
@@ -13,14 +17,38 @@ onready var settings = $Settings
 onready var ingame	= $InGame
 onready var gameover = $GameOver
 
+onready var screen_size : Vector2 = OS.get_screen_size()
+
+
+enum State {
+	Title,
+	Settings,
+	InGame,
+	GameOver
+}
+
+
+var dont_touch_area : Vector2
+var state : int
+
 
 func _ready():
 	connect("over_game", self, "_over_game")
-	
-	
+		
 	hide_menues()
-	
 	title.show()
+	state = State.Title
+
+	var ingame_return_button : TextureButton = ingame.get_button_return_title()
+	dont_touch_area = ingame_return_button.rect_position + (ingame_return_button.rect_size * Vector2(0, 1))
+
+
+func _input(event):
+	if event is InputEventScreenTouch:
+		if event.is_pressed():
+			if event.position.y > dont_touch_area.y or event.position.x < dont_touch_area.x:
+				emit_signal("screen_touch")
+				DebugPanel.update("Gui Input")
 
 
 func hide_menues():
@@ -34,27 +62,32 @@ func _on_Start_pressed():
 	ingame.show()
 	
 	emit_signal("start_game")
+	
+	state = State.InGame
 
 
 func _on_Settings_pressed():
 	hide_menues()
 	
 	settings.show()
+	state = State.Settings
 
 
 func _on_ReturnTitle_pressed():
 	hide_menues()
-	
+	DebugPanel.update("ReturnTitle Pressed")
 	title.show()
-
+	state = State.Title
+	
 	emit_signal("return_menu")
 
 
 func _over_game():
 	hide_menues()
 	
-	gameover.show()
-
+	gameover.show()	
+	state = State.GameOver
+	
 
 func _on_Quit_pressed():
 	get_tree().quit()
@@ -299,5 +332,5 @@ func _on_Quit_pressed():
 #	emit_signal("location_selected", button_index)
 
 
-func _on_ReturnTitle_mouse_entered():
-	DebugPanel.update("Mouse Entered")
+func _on_ReturnTitle_button_down():
+	DebugPanel.update("Button Down")
