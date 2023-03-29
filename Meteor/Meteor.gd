@@ -4,6 +4,10 @@ extends StaticBody2D
 signal destroyed
 
 
+export (int, 3, 128) var num_segments : int = 12
+export (int, 8, 500) var radius : int = 64
+
+
 onready var chunks = $Chunks
 
 onready var polygon_explosive = $Explosive
@@ -37,6 +41,8 @@ func _ready():
 	
 	connect("destroyed", self, "_meteor_destroyed")
 	
+#	create_meteor()
+	
 
 func _physics_process(delta):
 	rotate(delta)
@@ -49,11 +55,13 @@ func collision(collision_position : Vector2):
 #		explode(body.global_position)
 
 
-func create_meteor(num_segments : int, radius : int):
-	if is_created and not is_destroyed:
-		return
-	is_created = true
-	is_destroyed = false
+func create_meteor():
+	if not is_destroyed:
+		DebugPanel.update("Meteor Henuz Yok Edilmedi")
+#	if is_created and not is_destroyed:
+#		return
+#	is_created = true
+#	is_destroyed = false
 
 
 	set_meteor_polygon(PolygonMath.calc_circle_points(num_segments, radius), true)
@@ -62,8 +70,12 @@ func create_meteor(num_segments : int, radius : int):
 #	polygon_meteor_background.polygon = polygon_meteor.polygon
 	
 	
-	polygon_explosive.polygon = PolygonMath.calc_circle_points(num_segments, radius/5)
+	polygon_explosive.polygon = PolygonMath.calc_circle_points(12, 32)
 	explosive_local_points = polygon_explosive.polygon
+	
+	
+	is_created = true
+	is_destroyed = false
 
 
 func drop_chunk(chunk_points : PoolVector2Array):
@@ -116,11 +128,13 @@ func set_meteor_polygon(points : PoolVector2Array, is_update_back : bool = false
 
 
 func _meteor_destroyed():
+	DebugPanel.update("Meteor | _meteor_destroyed")
 	drop_chunk(polygon_meteor.polygon)
 	set_meteor_polygon(PoolVector2Array())
-#	polygon_area_collision.set_deferred("polygon", polygon_meteor.polygon)
 	
+	is_created = false
 	is_destroyed = true
+#	polygon_area_collision.set_deferred("polygon", polygon_meteor.polygon)
 
 
 func _on_ExplosiveDetector_body_entered(body):

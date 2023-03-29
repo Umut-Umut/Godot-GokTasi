@@ -13,6 +13,9 @@ var bullet_count : int = 0
 var bullets_size : int = 50
 
 
+var is_fire : bool = false
+
+
 func _ready():
 	var bullet : Bullet
 	for _i in range(bullets_size):
@@ -24,7 +27,9 @@ func _ready():
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.is_pressed():
-			DebugPanel.update("SpaceShip _input | pressed")
+			pass
+#			fire()
+#			DebugPanel.update("SpaceShip _input | pressed")
 #			fire()
 
 

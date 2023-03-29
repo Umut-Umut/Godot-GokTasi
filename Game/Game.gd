@@ -1,6 +1,9 @@
 extends Node2D
 
 
+class_name Game
+
+
 signal meteor_destroyed
 
 
@@ -30,17 +33,27 @@ onready var meteor = $Meteor
 func _ready():
 	if meteor.is_connected("destroyed", self, "_meteor_destroyed") == false:
 		meteor.connect("destroyed", self, "_meteor_destroyed")
-	
-	meteor.create_meteor(12, 64 * 2)
+
+#	meteor.create_meteor()
 
 
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.pressed:
-			DebugPanel.update("Game Input")
+			pass
+#			DebugPanel.update("Game Input")
+
+
+func reset():
+	if meteor.is_destroyed or not meteor.is_created:
+		ship.clear_bullets(false)
+		meteor.create_meteor()
+	elif meteor.is_created:
+		ship.clear_bullets(false)
 
 
 func _meteor_destroyed():
+	DebugPanel.update("Game | _meteor_destroyed")
 	emit_signal("meteor_destroyed")
 	
 	ship.clear_bullets(false)

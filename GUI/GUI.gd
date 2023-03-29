@@ -9,7 +9,7 @@ signal return_game
 signal settings
 signal return_menu
 signal over_game
-signal screen_touch
+signal screen_touch(state)
 
 
 onready var title = $Title
@@ -46,9 +46,10 @@ func _ready():
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.is_pressed():
-			if event.position.y > dont_touch_area.y or event.position.x < dont_touch_area.x:
-				emit_signal("screen_touch")
-				DebugPanel.update("Gui Input")
+			emit_signal("screen_touch", state)
+#			if event.position.y > dont_touch_area.y or event.position.x < dont_touch_area.x:
+#				emit_signal("screen_touch", state)
+#				DebugPanel.update("Gui Input")
 
 
 func hide_menues():
@@ -75,7 +76,6 @@ func _on_Settings_pressed():
 
 func _on_ReturnTitle_pressed():
 	hide_menues()
-	DebugPanel.update("ReturnTitle Pressed")
 	title.show()
 	state = State.Title
 	
@@ -330,7 +330,3 @@ func _on_Quit_pressed():
 #
 #func on_selected_location(button_index):
 #	emit_signal("location_selected", button_index)
-
-
-func _on_ReturnTitle_button_down():
-	DebugPanel.update("Button Down")
