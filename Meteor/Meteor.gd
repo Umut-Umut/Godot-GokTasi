@@ -90,7 +90,7 @@ func drop_chunk(chunk_points : PoolVector2Array):
 	
 	new_chunk.add_child(new_poly)
 	
-	new_chunk.weight = rand_range(9.8, 90.8)
+	new_chunk.gravity_scale = rand_range(1, 2)
 	chunks.call_deferred("add_child", new_chunk)
 
 

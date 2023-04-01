@@ -39,9 +39,10 @@ func _ready():
 
 func _input(event):
 	if event is InputEventScreenTouch:
-		if event.pressed:
-			pass
-#			DebugPanel.update("Game Input")
+		if event.is_pressed():
+#			if event.position.y > dont_touch_area.y or event.position.x < dont_touch_area.x:
+#				emit_signal("screen_touch", state)
+			DebugPanel.update("Game input", OS.get_system_time_msecs())
 
 
 func reset():
@@ -49,7 +50,6 @@ func reset():
 		ship.clear_bullets(false)
 		meteor.create_meteor()
 	elif meteor.is_created:
-		pass
 		ship.clear_bullets(false)
 
 
@@ -71,6 +71,7 @@ func set_process_input(state : bool):
 
 
 func _on_BulletTravelLimit_body_entered(body):
+	DebugPanel.update("limit", body)
 	if body is Bullet:
 		body.disable()
 	

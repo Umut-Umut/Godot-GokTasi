@@ -29,8 +29,8 @@ func _physics_process(delta : float):
 	collide = move_and_collide(velocity * delta)
 
 	if collide:
-		collide.collider.collision(collide.position)
 		disable()
+		collide.collider.collision(collide.position)
 
 
 func enable(_direction : Vector2, _position : Vector2):

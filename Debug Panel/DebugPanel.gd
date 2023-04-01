@@ -17,6 +17,8 @@ var title_labels : Dictionary = {}
 
 
 func _ready() -> void:
+	if is_debug == false:
+		labels.visible = false
 	titles.modulate = Color.green
 	
 	add_child(labels)

@@ -26,15 +26,13 @@ func _ready():
 	
 	GAME.reset()
 	
-	
 #	GAME.set_process_input(false)
 
 
 func _input(event):
 	if event is InputEventScreenTouch:
-		if event.pressed and GUI.state == GUI.State.InGame:
-			pass
-#			DebugPanel.update("Main input")
+		if event.pressed:
+			DebugPanel.update("Main input", OS.get_system_time_msecs())
 
 
 func _meteor_destroyed():
@@ -42,12 +40,13 @@ func _meteor_destroyed():
 
 
 func _screen_touch(state : int):
-	if state == GUI.State.InGame:
-		if not GAME.is_processing_input():
-			GAME.set_process_input(true)
-		GAME._screen_touch()
-	else:
-		GAME.set_process_input(false)
+	match state:
+		GUI.State.InGame:
+			if not GAME.is_processing_input():
+				GAME.set_process_input(true)
+			GAME._screen_touch()
+		_:
+			GAME.reset()
 
 
 func _start_game():
@@ -57,7 +56,8 @@ func _start_game():
 
 
 func _return_menu():
-	GAME.reset()
+	pass
+#	GAME.reset()
 #	DebugPanel.update("Return Menu")
 #	GAME._ready()
 #	GAME.set_process_input(false)

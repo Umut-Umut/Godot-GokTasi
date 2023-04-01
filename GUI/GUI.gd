@@ -12,55 +12,73 @@ signal over_game
 signal screen_touch(state)
 
 
-onready var title = $Title
-onready var settings = $Settings
-onready var ingame	= $InGame
-onready var gameover = $GameOver
+#onready var title = $Title
+#onready var settings = $Settings
+#onready var ingame	= $InGame
+#onready var gameover = $GameOver
 
+onready var menus := get_children()
 onready var screen_size : Vector2 = OS.get_screen_size()
 
 
 enum State {
 	Title,
 	Settings,
+	GameOver,
 	InGame,
-	GameOver
 }
 
 
 var dont_touch_area : Vector2
 var state : int
+var is_state_change : bool = false
+#var state_temp : int
 
 
 func _ready():
 	connect("over_game", self, "_over_game")
-		
-	hide_menues()
-	title.show()
+	
+	
+	
+#	hide_menues()
+#	title.show()
 	state = State.Title
+#	state_temp = state
 
-	var ingame_return_button : TextureButton = ingame.get_button_return_title()
+	var ingame_return_button : TextureButton = menus[State.InGame].get_button_return_title()
 	dont_touch_area = ingame_return_button.rect_position + (ingame_return_button.rect_size * Vector2(0, 1))
 
 
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.is_pressed():
-			emit_signal("screen_touch", state)
 #			if event.position.y > dont_touch_area.y or event.position.x < dont_touch_area.x:
-#				emit_signal("screen_touch", state)
-#				DebugPanel.update("Gui Input")
+#			for c in menus[state].get_children():
+			for c in $Title.get_children():
+				if c is TextureButton and c.get_rect().has_point(event.position):
+					DebugPanel.update("c :", c)
+					
+			emit_signal("screen_touch", state)
+			update()
+			DebugPanel.update("Gui gui_input", OS.get_system_time_msecs())
 
 
-func hide_menues():
-	for menu in get_children():
-		menu.hide()
+func update():
+#	if state == state_temp:
+#		return
+	for menu in menus.size():
+		if menu == state:
+			menus[menu].show()
+		else:
+			menus[menu].hide()
+	
+
 
 
 func _on_Start_pressed():
-	hide_menues()
+#	hide_menues()
 	
-	ingame.show()
+#	ingame.show()
 	
 	emit_signal("start_game")
 	
@@ -68,26 +86,27 @@ func _on_Start_pressed():
 
 
 func _on_Settings_pressed():
-	hide_menues()
+#	hide_menues()
 	
-	settings.show()
+#	settings.show()
 	state = State.Settings
 
 
 func _on_ReturnTitle_pressed():
-	hide_menues()
-	title.show()
+#	hide_menues()
+#	title.show()
 	state = State.Title
 	
 	emit_signal("return_menu")
+	DebugPanel.update("Gui return title", OS.get_system_time_msecs())
 
 
 func _over_game():
-	hide_menues()
+#	hide_menues()
 	
-	gameover.show()	
+#	gameover.show()	
 	state = State.GameOver
-	
+
 
 func _on_Quit_pressed():
 	get_tree().quit()

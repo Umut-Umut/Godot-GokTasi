@@ -6,7 +6,6 @@
 scale = Vector2( 2, 2 )
 transform = Transform2D( 2, 0, 0, 2, 0, 0 )
 script = ExtResource( 1 )
-is_debug = false
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_right = 14.0
