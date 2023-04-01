@@ -25,8 +25,3 @@ func _on_HSliderSide_value_changed(value):
 	side_slider_label.text = str(value)
 	
 	settings_data["side"] = value
-
-
-func _on_ReturnTitle_pressed():
-	pass
-#	Gui.emit_signal("exit_settings", settings_data)

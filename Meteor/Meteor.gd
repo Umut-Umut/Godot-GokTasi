@@ -21,8 +21,8 @@ onready var chunk_scene = preload("res://Chunk/Chunk.tscn")
 var new_chunk
 
 var big_polygon : PoolVector2Array
-var big_polygon_area : int = 0
-var polygon_area : int = 0
+var big_polygon_area : float = 0
+var polygon_area : float = 0
 var big_polygon_index : int = 0
 
 var is_clockwise : bool = false
@@ -41,7 +41,7 @@ func _ready():
 	
 	polygon_explosive.hide()
 	
-	connect("destroyed", self, "_meteor_destroyed")
+	if not connect("destroyed", self, "_meteor_destroyed"): pass
 	
 #	create_meteor()
 	
@@ -146,7 +146,6 @@ func _meteor_destroyed():
 
 func _on_ExplosiveDetector_body_entered(body):
 	if body is Bullet:
-		return
 		body.disable()
 		explode(body.global_position)
 		

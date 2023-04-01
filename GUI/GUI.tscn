@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://GUI/GUI.gd" type="Script" id=1]
 [ext_resource path="res://Font/Arial.tres" type="DynamicFont" id=2]
@@ -10,6 +10,49 @@
 [ext_resource path="res://Images/ReturnMenu.png" type="Texture" id=8]
 [ext_resource path="res://Images/Exit_2.png" type="Texture" id=9]
 [ext_resource path="res://GUI/InGame.gd" type="Script" id=10]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Title:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "state_change"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -114,14 +157,6 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Start" type="TextureButton" parent="Title"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Settings" type="TextureButton" parent="Title"]
 anchor_left = 1.0
 anchor_top = 1.0
@@ -132,6 +167,9 @@ margin_top = -128.0
 texture_normal = ExtResource( 7 )
 expand = true
 stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Quit" type="TextureButton" parent="Title"]
 anchor_top = 1.0
@@ -386,17 +424,23 @@ text = "Menu"
 align = 1
 valign = 1
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Title")
+reset_on_save = false
+anims/RESET = SubResource( 1 )
+anims/state_change = SubResource( 2 )
+
 [connection signal="pressed" from="Title/VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="Title/VBoxContainer/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="Title/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
-[connection signal="pressed" from="Title/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="button_down" from="Title/Settings" to="." method="_on_Settings_button_down"]
 [connection signal="pressed" from="Title/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Radius/HSliderRad" to="Settings" method="_on_HSliderRad_value_changed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/SideNum/HSliderSide" to="Settings" method="_on_HSliderSide_value_changed"]
+[connection signal="button_down" from="Settings/VBoxContainer/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
 [connection signal="pressed" from="Settings/VBoxContainer/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
-[connection signal="pressed" from="Settings/VBoxContainer/ReturnTitle" to="Settings" method="_on_ReturnTitle_pressed"]
 [connection signal="pressed" from="GameOver/VBoxContainer/Restart" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="GameOver/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="GameOver/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
+[connection signal="button_down" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
 [connection signal="pressed" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
-[connection signal="pressed" from="InGame/ReturnTitle" to="InGame" method="_on_ReturnTitle_pressed"]

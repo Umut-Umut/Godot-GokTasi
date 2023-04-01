@@ -42,7 +42,8 @@ func _input(event):
 		if event.is_pressed():
 #			if event.position.y > dont_touch_area.y or event.position.x < dont_touch_area.x:
 #				emit_signal("screen_touch", state)
-			DebugPanel.update("Game input", OS.get_system_time_msecs())
+#			DebugPanel.update("Game input", OS.get_system_time_msecs())
+			pass
 
 
 func reset():

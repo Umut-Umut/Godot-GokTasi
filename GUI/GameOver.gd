@@ -8,6 +8,7 @@ func show_message(msg : String):
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.is_pressed():
+			pass
 #			if event.position.y > dont_touch_area.y or event.position.x < dont_touch_area.x:
 #				emit_signal("screen_touch", state)
-			DebugPanel.update("GameOVer input", OS.get_system_time_msecs())
+#			DebugPanel.update("GameOVer input", OS.get_system_time_msecs())
