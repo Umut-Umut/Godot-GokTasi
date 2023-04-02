@@ -29,125 +29,50 @@ signal meteor_destroyed
 onready var ship : SpaceShip = $SpaceShip
 onready var meteor = $Meteor
 
+#var is_start : bool = false
+
 
 func _ready():
 	if meteor.is_connected("destroyed", self, "_meteor_destroyed") == false:
 		meteor.connect("destroyed", self, "_meteor_destroyed")
 
-#	meteor.create_meteor()
-
-
-func _input(event):
-	if event is InputEventScreenTouch:
-		if event.is_pressed():
-#			if event.position.y > dont_touch_area.y or event.position.x < dont_touch_area.x:
-#				emit_signal("screen_touch", state)
-#			DebugPanel.update("Game input", OS.get_system_time_msecs())
-			pass
-
 
 func reset():
 	if meteor.is_destroyed or not meteor.is_created:
-		ship.clear_bullets(false)
+#		ship.clear_bullets(false)
 		meteor.create_meteor()
 	elif meteor.is_created:
-		ship.clear_bullets(false)
+		pass
+#		ship.clear_bullets(false)
 
 
 func _meteor_destroyed():
-#	DebugPanel.update("Game | _meteor_destroyed")
 	emit_signal("meteor_destroyed")
 	
-	ship.clear_bullets(false)
+#	ship.clear_bullets(false)
 
 
-func _screen_touch():
+func ship_fire():
 	ship.fire()
 
+#func set_process_input(state : bool):
+#	.set_process_input(state)
+#	for c in get_children():
+#		c.set_process_input(state)
 
-func set_process_input(state : bool):
-	.set_process_input(state)
-	for c in get_children():
-		c.set_process_input(state)
+
+#func _on_screen_touch():
+#	pass
+#	if is_start:
+#		if ship.is_fire:
+#			ship.fire()
+#		else:
+#			ship.is_fire = true
 
 
 func _on_BulletTravelLimit_body_entered(body):
-	DebugPanel.update("limit", body)
 	if body is Bullet:
 		body.disable()
 	
 	if body is Chunk:
 		body.disable()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##	Gui.connect("game_over", self, "game_over")
-#
-#
-#func reset():
-#	pass
-#
-#
-#func start_game(settings_parameter):
-#	show()
-#
-#
-#func meteor_destroyed():
-#	Gui.emit_signal("game_over", "Göktaşını Yok Ettin...")
-#	hide()
-#
-#	is_clear = true
-#
-#
-#func return_menu():
-#	pass
-##	hide()
-#
-#
-#func continue_game():
-#	show(true)
-##		body.hide()
-##		body.set_process(false)
-#
-#
-#func hide():
-#	.hide()
-#	for child in get_children():
-#		child.set_process(false)
-#		child.set_process_input(false)	
-#
-#
-#func show(is_continue : bool = false):
-#	if is_continue == false and is_clear:
-#		if settings_data.has("radius") and settings_data.has("side"):
-#			meteor.create_meteor(settings_data["side"], settings_data["radius"])
-#		else:
-#			meteor.create_meteor(12, 64 * 3)
-#
-#	.show()
-#	for child in get_children():
-#		child.set_process(true)
-#		child.set_process_input(true)

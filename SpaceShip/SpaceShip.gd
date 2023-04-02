@@ -4,6 +4,9 @@ extends StaticBody2D
 class_name SpaceShip
 
 
+export var is_fire : bool = true
+
+
 onready var node_bullets : Node2D = $Bullets
 onready var scene_bullet := preload("res://Bullet/Bullet.tscn")
 
@@ -11,9 +14,6 @@ onready var scene_bullet := preload("res://Bullet/Bullet.tscn")
 var bullets : Array = []
 var bullet_count : int = 0
 var bullets_size : int = 50
-
-
-var is_fire : bool = false
 
 
 func _ready():
@@ -24,16 +24,8 @@ func _ready():
 		bullets.append(bullet)
 
 
-func _input(event):
-	if event is InputEventScreenTouch:
-		if event.is_pressed():
-			pass
-#			fire()
-#			DebugPanel.update("SpaceShip _input | pressed")
-#			fire()
-
-
 func fire():
+	if not is_fire: return
 	bullets[bullet_count].enable(Vector2.UP, global_position)
 	bullet_count += 1
 	bullet_count %= bullets_size

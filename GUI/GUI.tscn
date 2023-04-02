@@ -13,30 +13,6 @@
 
 [sub_resource type="Animation" id=1]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Title:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
 
 [sub_resource type="Animation" id=2]
 resource_name = "state_change"
@@ -57,9 +33,17 @@ tracks/0/keys = {
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource( 1 )
 
+[node name="CanvasEmptyTouch" type="TextureButton" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Title" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -68,6 +52,7 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="Title"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -91,6 +76,7 @@ margin_top = 434.0
 margin_right = 640.0
 margin_bottom = 498.0
 rect_min_size = Vector2( 0, 64 )
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Title/VBoxContainer/Continue"]
 anchor_right = 1.0
@@ -109,6 +95,7 @@ margin_top = 502.0
 margin_right = 640.0
 margin_bottom = 566.0
 rect_min_size = Vector2( 0, 64 )
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Title/VBoxContainer/Start"]
 anchor_right = 1.0
@@ -127,6 +114,7 @@ margin_top = 536.0
 margin_right = 640.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 0, 64 )
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Title/VBoxContainer/Settings"]
 anchor_right = 1.0
@@ -145,6 +133,7 @@ margin_top = 536.0
 margin_right = 640.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 0, 64 )
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Title/VBoxContainer/Quit"]
 anchor_right = 1.0
@@ -200,6 +189,7 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -208,6 +198,7 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -227,6 +218,7 @@ autowrap = true
 margin_top = 468.0
 margin_right = 640.0
 margin_bottom = 532.0
+mouse_filter = 2
 custom_constants/separation = 25
 alignment = 1
 
@@ -243,6 +235,7 @@ margin_left = 197.0
 margin_right = 497.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 300, 64 )
+mouse_filter = 1
 min_value = 64.0
 max_value = 500.0
 value = 64.0
@@ -260,6 +253,7 @@ text = "000"
 margin_top = 536.0
 margin_right = 640.0
 margin_bottom = 600.0
+mouse_filter = 2
 custom_constants/separation = 25
 alignment = 1
 
@@ -276,6 +270,7 @@ margin_left = 235.0
 margin_right = 535.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 300, 64 )
+mouse_filter = 1
 min_value = 12.0
 max_value = 500.0
 value = 12.0
@@ -294,6 +289,7 @@ margin_top = 604.0
 margin_right = 640.0
 margin_bottom = 668.0
 rect_min_size = Vector2( 0, 64 )
+mouse_filter = 1
 
 [node name="Label" type="Label" parent="Settings/VBoxContainer/ReturnTitle"]
 anchor_right = 1.0
@@ -310,6 +306,7 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -318,6 +315,7 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -376,6 +374,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 64 )
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -430,17 +429,15 @@ reset_on_save = false
 anims/RESET = SubResource( 1 )
 anims/state_change = SubResource( 2 )
 
+[connection signal="button_down" from="CanvasEmptyTouch" to="." method="_on_CanvasEmptyTouch_button_down"]
 [connection signal="pressed" from="Title/VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="Title/VBoxContainer/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="Title/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="button_down" from="Title/Settings" to="." method="_on_Settings_button_down"]
-[connection signal="pressed" from="Title/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="button_down" from="Title/Quit" to="." method="_on_Quit_button_down"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Radius/HSliderRad" to="Settings" method="_on_HSliderRad_value_changed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/SideNum/HSliderSide" to="Settings" method="_on_HSliderSide_value_changed"]
 [connection signal="button_down" from="Settings/VBoxContainer/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
-[connection signal="pressed" from="Settings/VBoxContainer/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
 [connection signal="pressed" from="GameOver/VBoxContainer/Restart" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="GameOver/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
-[connection signal="pressed" from="GameOver/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
 [connection signal="button_down" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
-[connection signal="pressed" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
