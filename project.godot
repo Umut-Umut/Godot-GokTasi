@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Lib/LibTextureButton.gd"
 }, {
+"base": "StaticBody2D",
+"class": "Meteor",
+"language": "GDScript",
+"path": "res://Meteor/Meteor.gd"
+}, {
 "base": "Reference",
 "class": "MyVector",
 "language": "GDScript",
@@ -61,6 +66,7 @@ _global_script_class_icons={
 "Game": "",
 "GraphicUI": "",
 "LibTextureButton": "",
+"Meteor": "",
 "MyVector": "",
 "PolygonMath": "",
 "SpaceShip": ""
@@ -71,10 +77,6 @@ _global_script_class_icons={
 config/name="Goktasi"
 run/main_scene="res://Main/Main.tscn"
 config/icon="res://icon.png"
-
-[autoload]
-
-DebugPanel="*res://Debug Panel/DebugPanel.tscn"
 
 [display]
 

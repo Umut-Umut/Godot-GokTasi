@@ -4,6 +4,9 @@ extends StaticBody2D
 class_name SpaceShip
 
 
+signal shot(target)
+
+
 export var is_fire : bool = true
 
 
@@ -20,6 +23,9 @@ func _ready():
 	var bullet : Bullet
 	for _i in range(bullets_size):
 		bullet = scene_bullet.instance()
+		
+		bullet.connect("collide", self, "_on_bullet_collide")
+		
 		node_bullets.add_child(bullet)
 		bullets.append(bullet)
 
@@ -30,7 +36,7 @@ func fire():
 	bullet_count += 1
 	bullet_count %= bullets_size
 	
-	DebugPanel.update("Counter", bullet_count)
+#	DebugPanel.update("Counter", bullet_count)
 
 
 func set_process_input(state : bool):
@@ -48,3 +54,7 @@ func clear_bullets(is_hide : bool = true):
 	for b in bullets:
 		if not b.is_disabled:
 			b.disable(is_hide)
+
+
+func _on_bullet_collide(target):
+	emit_signal("shot", target)
