@@ -24,14 +24,21 @@ func _ready():
 	for _i in range(bullets_size):
 		bullet = scene_bullet.instance()
 		
-		bullet.connect("collide", self, "_on_bullet_collide")
+#		bullet.connect("collide", self, "_on_bullet_collide")
 		
 		node_bullets.add_child(bullet)
 		bullets.append(bullet)
 
 
+func _unhandled_input(event):
+	if event is InputEventScreenTouch:
+		if event.pressed and event.index == 0:
+			fire()
+
+
 func fire():
 	if not is_fire: return
+	
 	bullets[bullet_count].enable(Vector2.UP, global_position)
 	bullet_count += 1
 	bullet_count %= bullets_size
@@ -45,6 +52,7 @@ func set_process_input(state : bool):
 #	bullets[bullet_count - 1].disable()
 
 
+# Bu neden burada? Sanirim bir deneme yaptim.
 func _on_Timer_timeout():
 	fire()
 

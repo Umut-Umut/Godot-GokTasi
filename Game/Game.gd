@@ -44,8 +44,8 @@ func _on_shot_target(target):
 		meteor.explode(target.position)
 
 
-func ship_fire():
-	ship.fire()
+#func ship_fire():
+#	ship.fire()
 
 #func set_process_input(state : bool):
 #	.set_process_input(state)
