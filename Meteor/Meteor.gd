@@ -136,6 +136,7 @@ func set_meteor_polygon(points : PoolVector2Array, is_update_back : bool = false
 
 
 func _on_ExplosiveDetector_body_entered(body):
+	# Area2D(ExplosiveDetector) disable
 	if body is Bullet:
 		body.disable()
 		explode(body.global_position)

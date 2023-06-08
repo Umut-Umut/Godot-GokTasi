@@ -4,7 +4,7 @@ extends StaticBody2D
 class_name SpaceShip
 
 
-signal shot(target)
+signal shot(collision)
 
 
 export var is_fire : bool = true
@@ -24,7 +24,7 @@ func _ready():
 	for _i in range(bullets_size):
 		bullet = scene_bullet.instance()
 		
-#		bullet.connect("collide", self, "_on_bullet_collide")
+		bullet.connect("collision", self, "_on_bullet_collide")
 		
 		node_bullets.add_child(bullet)
 		bullets.append(bullet)
@@ -64,5 +64,5 @@ func clear_bullets(is_hide : bool = true):
 			b.disable(is_hide)
 
 
-func _on_bullet_collide(target):
-	emit_signal("shot", target)
+func _on_bullet_collide(collision):
+	emit_signal("shot", collision)

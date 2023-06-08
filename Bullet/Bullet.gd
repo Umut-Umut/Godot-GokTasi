@@ -4,7 +4,7 @@ extends KinematicBody2D
 class_name Bullet
 
 
-signal collide(collider)
+signal collision(collision)
 
 
 onready var node_collision = $CollisionShape2D
@@ -33,7 +33,7 @@ func _physics_process(delta : float):
 
 	if collide:
 		disable()
-		emit_signal("collide", collide)
+		emit_signal("collision", collide)
 #		collide.collider.collision(collide.position)
 
 

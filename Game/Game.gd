@@ -39,9 +39,9 @@ func _on_meteor_destroyed():
 	emit_signal("meteor_destroyed")
 
 
-func _on_shot_target(target):
+func _on_shot_target(collision : KinematicCollision2D):
 	if is_start:
-		meteor.explode(target.position)
+		meteor.explode(collision.position)
 
 
 #func ship_fire():

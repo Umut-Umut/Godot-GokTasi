@@ -5,7 +5,7 @@ class_name GraphicUI
 
 
 signal start_game
-#signal game_over
+signal game_over
 #signal return_menu
 #signal screen_touch
 
@@ -22,7 +22,7 @@ var state : Control
 
 
 func _ready():
-#	connect("game_over", self, "_on_game_over")
+	if not connect("game_over", self, "_on_game_over"): pass
 	
 	for child in get_children():
 		if child.get_class() == "Control":
@@ -37,8 +37,13 @@ func _unhandled_input(event):
 			# unhandled_input, sinyallerden sonra cagiriliyor
 			if not state == ingame: # Oyun baslar baslamaz gemi ates etmesin diye
 				get_tree().set_input_as_handled()
+				
 			if state == title:
 				update(ingame)
+				emit_signal("start_game")
+			
+			if state == gameover:
+				update(title)
 
 
 func update(new_state : Control):
