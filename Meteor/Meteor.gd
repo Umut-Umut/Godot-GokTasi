@@ -60,6 +60,9 @@ func collision(collision_position : Vector2):
 
 
 func create_meteor():
+	if is_created:
+		return
+	
 	set_meteor_polygon(PolygonMath.calc_circle_points(num_segments, radius), true)
 	
 	
@@ -67,7 +70,7 @@ func create_meteor():
 	explosive_local_points = polygon_explosive.polygon
 	
 	
-#	is_created = true
+	is_created = true
 	is_destroyed = false
 
 
@@ -75,7 +78,7 @@ func _meteor_destroyed():
 	drop_chunk(polygon_meteor.polygon)
 	set_meteor_polygon(PoolVector2Array())
 	
-#	is_created = false
+	is_created = false
 	is_destroyed = true
 	
 	if auto_create_when_destroy:
