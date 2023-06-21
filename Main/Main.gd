@@ -43,6 +43,7 @@ func _ready():
 #	GUI = gui_scene.instance()
 #	GAME = game_scene.instance()
 	
+	if not GUI.connect("return_menu", GAME, "_on_return_menu"): pass
 #	if not GAME.connect("meteor_destroyed", self, "_on_meteor_destroyed"): 	pass
 #	if not GUI.connect("start_game", self, "_on_start_game"): 				pass
 	
@@ -58,13 +59,8 @@ func _on_start_game():
 	GAME.start()
 
 
-func _on_return_menu():
-	GAME.init()
-	
-
-func _on_meteor_destroyed():
-	GAME.end()
-	GUI.emit_signal("game_over")
+#func _on_return_menu():
+#	GAME.init()
 
 
 func _on_GUI_start_game():

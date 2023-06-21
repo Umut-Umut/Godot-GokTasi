@@ -24,16 +24,22 @@ func _ready():
 func init():
 #	if not is_start:
 	meteor.create_meteor()
+	ship.is_fire = false
 
 
 func start():
 	is_start = true
 	
-#	if meteor.is_destroyed:
+	ship.is_fire = true
 	meteor.create_meteor()
 
 
+func _on_return_menu():
+	ship.is_fire = false
+
+
 func end():
+	ship.is_fire = false
 	is_start = false
 
 

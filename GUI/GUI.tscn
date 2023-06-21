@@ -140,6 +140,13 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="Start" type="TextureButton" parent="Title"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Settings" type="TextureButton" parent="Title"]
 anchor_left = 1.0
 anchor_top = 1.0
@@ -180,7 +187,6 @@ __meta__ = {
 }
 
 [node name="Settings" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -297,7 +303,6 @@ __meta__ = {
 }
 
 [node name="GameOver" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -328,47 +333,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Restart" type="TextureButton" parent="GameOver/VBoxContainer"]
-visible = false
-margin_top = 502.0
-margin_right = 640.0
-margin_bottom = 566.0
-rect_min_size = Vector2( 0, 64 )
-
-[node name="Label" type="Label" parent="GameOver/VBoxContainer/Restart"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 2 )
-text = "Tekrar Oyna"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Quit" type="TextureButton" parent="GameOver/VBoxContainer"]
-visible = false
-margin_top = 604.0
-margin_right = 640.0
-margin_bottom = 668.0
-rect_min_size = Vector2( 0, 64 )
-
-[node name="Label" type="Label" parent="GameOver/VBoxContainer/Quit"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 2 )
-text = "Çıkış"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="ReturnTitle" type="TextureButton" parent="GameOver"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 64 )
-mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -386,6 +354,7 @@ __meta__ = {
 }
 
 [node name="InGame" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -425,11 +394,11 @@ anims/state_change = SubResource( 2 )
 [connection signal="pressed" from="Title/VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="Title/VBoxContainer/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="Title/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="Title/Start" to="." method="_on_Start_pressed"]
 [connection signal="button_down" from="Title/Settings" to="." method="_on_Settings_button_down"]
 [connection signal="button_down" from="Title/Quit" to="." method="_on_Quit_button_down"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Radius/HSliderRad" to="Settings" method="_on_HSliderRad_value_changed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/SideNum/HSliderSide" to="Settings" method="_on_HSliderSide_value_changed"]
 [connection signal="button_down" from="Settings/VBoxContainer/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
-[connection signal="pressed" from="GameOver/VBoxContainer/Restart" to="." method="_on_Start_pressed"]
-[connection signal="pressed" from="GameOver/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="button_down" from="GameOver/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
 [connection signal="button_down" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
