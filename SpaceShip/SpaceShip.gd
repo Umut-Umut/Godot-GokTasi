@@ -1,10 +1,10 @@
-extends StaticBody2D
+extends KinematicBody2D
 
 
 class_name SpaceShip
 
 
-signal shot(collision)
+signal shot(collision_position)
 
 
 export var is_fire : bool = true
@@ -24,7 +24,7 @@ func _ready():
 	for _i in range(bullets_size):
 		bullet = scene_bullet.instance()
 		
-		bullet.connect("collision", self, "_on_bullet_collide")
+		if bullet.connect("collision", self, "_on_bullet_collide"): pass
 		
 		node_bullets.add_child(bullet)
 		bullets.append(bullet)
@@ -42,6 +42,8 @@ func fire():
 	bullets[bullet_count].enable(Vector2.UP, global_position)
 	bullet_count += 1
 	bullet_count %= bullets_size
+	
+#	GlobalParticles.set_fire_particle(position)
 	
 #	DebugPanel.update("Counter", bullet_count)
 
@@ -64,5 +66,5 @@ func clear_bullets(is_hide : bool = true):
 			b.disable(is_hide)
 
 
-func _on_bullet_collide(collision):
-	emit_signal("shot", collision)
+func _on_bullet_collide(collision_position):
+	emit_signal("shot", collision_position)

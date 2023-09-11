@@ -8,7 +8,7 @@ signal meteor_destroyed
 
 
 onready var ship : SpaceShip = $SpaceShip
-onready var meteor = $Meteor
+onready var meteor : Meteor = $Meteor
 
 
 var is_start : bool = false
@@ -43,32 +43,19 @@ func end():
 	is_start = false
 
 
-
 func _on_meteor_destroyed():
 	emit_signal("meteor_destroyed")
 
 
-func _on_shot_target(collision : KinematicCollision2D):
+func _on_shot_target(collision_position : Vector2):
 	if is_start:
-		meteor.explode(collision.position)
+		meteor.explode(collision_position)
+		GlobalParticles.set_particle(collision_position)
 
 
-#func ship_fire():
-#	ship.fire()
-
-#func set_process_input(state : bool):
-#	.set_process_input(state)
-#	for c in get_children():
-#		c.set_process_input(state)
-
-
-#func _on_screen_touch():
-#	pass
-#	if is_start:
-#		if ship.is_fire:
-#			ship.fire()
-#		else:
-#			ship.is_fire = true
+func _on_settings_change(new_settings : Dictionary):
+#	DebugPanel.update("game settings", new_settings)
+	meteor.new_settings(new_settings)
 
 
 func _on_BulletTravelLimit_body_entered(body):
