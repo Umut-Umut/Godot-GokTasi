@@ -20,6 +20,8 @@ var bullets_size : int = 50
 
 
 func _ready():
+	if connect("shot", get_parent(), "_on_shot"): pass
+	
 	var bullet : Bullet
 	for _i in range(bullets_size):
 		bullet = scene_bullet.instance()

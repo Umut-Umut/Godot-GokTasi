@@ -14,7 +14,7 @@ var settings_data : Dictionary
 
 
 func _ready():
-	if connect("settings_change", get_parent(), "_on_settings_change"): pass
+#	if connect("settings_change", get_parent(), "_on_settings_change"): pass
 	
 	
 	var radius = radius_slider.value
@@ -54,18 +54,18 @@ func _on_HSliderSide_value_changed(value):
 
 
 func _on_change_timer_timeout():
-	if is_settings_change:
-		emit_signal("settings_change", settings_data)
-		is_settings_change = false
+	pass
+#	if is_settings_change:
+#	emit_signal("settings_change", settings_data)
+#		is_settings_change = false
 	
-	timer_change.stop()
+#	timer_change.stop()
 
 func save_data():
 	var data_file = File.new()
 	data_file.open("user://data.json", File.WRITE)
 	data_file.store_string(to_json(settings_data))
 	data_file.close()
-	
 
 func load_data() -> bool:
 	var data_file = File.new()
@@ -78,3 +78,8 @@ func load_data() -> bool:
 	data_file.close()
 
 	return true
+
+
+func hide():
+	.hide()
+	timer_change.stop()

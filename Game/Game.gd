@@ -4,7 +4,8 @@ extends Node2D
 class_name Game
 
 
-signal meteor_destroyed
+#signal meteor_destroyed
+signal game_over
 
 
 onready var ship : SpaceShip = $SpaceShip
@@ -15,8 +16,8 @@ var is_start : bool = false
 
 
 func _ready():
-	if not meteor.connect("destroyed", self, "_on_meteor_destroyed"): pass
-	if not ship.connect("shot", self, "_on_shot_target"): pass
+	if meteor.connect("destroyed", self, "_on_meteor_destroyed"): pass
+#	if ship.connect("shot", self, "_on_shot_target"): pass
 	
 	init()
 
@@ -41,13 +42,17 @@ func _on_return_menu():
 func end():
 	ship.is_fire = false
 	is_start = false
+	
+	emit_signal("game_over")
 
 
 func _on_meteor_destroyed():
-	emit_signal("meteor_destroyed")
+	end()
+#	get_parent()._on_meteor_destroyed()
+#	emit_signal("meteor_destroyed")
 
 
-func _on_shot_target(collision_position : Vector2):
+func _on_shot(collision_position : Vector2):
 	if is_start:
 		meteor.explode(collision_position)
 		GlobalParticles.set_particle(collision_position)

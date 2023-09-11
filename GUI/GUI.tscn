@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://GUI/GUI.gd" type="Script" id=1]
 [ext_resource path="res://Font/Arial.tres" type="DynamicFont" id=2]
@@ -10,25 +10,6 @@
 [ext_resource path="res://Images/ReturnMenu.png" type="Texture" id=8]
 [ext_resource path="res://Images/Exit_2.png" type="Texture" id=9]
 [ext_resource path="res://GUI/InGame.gd" type="Script" id=10]
-
-[sub_resource type="Animation" id=1]
-length = 0.001
-
-[sub_resource type="Animation" id=2]
-resource_name = "state_change"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -302,7 +283,7 @@ __meta__ = {
 }
 
 [node name="change_timer" type="Timer" parent="Settings"]
-wait_time = 0.5
+wait_time = 0.05
 
 [node name="GameOver" type="Control" parent="."]
 visible = false
@@ -388,12 +369,6 @@ custom_fonts/font = ExtResource( 2 )
 text = "Menu"
 align = 1
 valign = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Title")
-reset_on_save = false
-anims/RESET = SubResource( 1 )
-anims/state_change = SubResource( 2 )
 
 [connection signal="pressed" from="Title/VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="Title/VBoxContainer/Settings" to="." method="_on_Settings_pressed"]

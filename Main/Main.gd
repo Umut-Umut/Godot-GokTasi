@@ -16,6 +16,9 @@ extends Node2D
 #onready var gui_scene = preload("res://GUI/GUI.tscn")
 #onready var game_scene = preload("res://Game/Game.tscn")
 
+#signal game_over
+
+
 var GUI : GraphicUI
 var GAME : Game
 
@@ -26,7 +29,9 @@ func _ready():
 #	GUI = gui_scene.instance()
 #	GAME = game_scene.instance()
 	
+	if GUI.connect("settings_change", GAME, "_on_settings_change"): pass
 	if GUI.connect("return_menu", GAME, "_on_return_menu"): pass
+	if GAME.connect("game_over", GUI, "_on_game_over"): pass
 #	if GUI.connect("settings_change", GAME, "_on_settings_change"): pass
 #	if not GAME.connect("meteor_destroyed", self, "_on_meteor_destroyed"): 	pass
 #	if not GUI.connect("start_game", self, "_on_start_game"): 				pass
@@ -53,12 +58,17 @@ func _on_GUI_start_game(only_create_meteor : bool = false):
 		return
 	GAME.start()
 
+#
+#func _on_game_over():
+#	GUI._on_game_over()
 
-func _on_Game_meteor_destroyed():
-	GAME.end()
-	GUI.emit_signal("game_over")
+
+#func _on_meteor_destroyed():
+#	GAME.end()
+#	GUI._on_game_over()
+#	GUI.emit_signal("game_over")
 
 
-func _on_settings_change(new_settings : Dictionary):
-	GAME._on_settings_change(new_settings)
+#func _on_settings_change(new_settings : Dictionary):
+#	GAME._on_settings_change(new_settings)
 

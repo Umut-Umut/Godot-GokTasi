@@ -5,10 +5,10 @@ class_name GraphicUI
 
 
 signal start_game(only_create_meteor)
-signal game_over
+#signal game_over
 signal return_menu
 #signal screen_touch
-#signal settings_change(new_settings)
+signal settings_change(new_settings)
 
 
 onready var title = $Title
@@ -25,9 +25,9 @@ var state : Control
 
 
 func _ready():
-#	if settings.connect("settings_change", self, "_on_settings_change"): pass
+	if settings.connect("settings_change", self, "_on_settings_change"): pass
 #	if connect("settings_change", get_parent(), "_on_settings_change"): pass
-	if connect("game_over", self, "_on_game_over"): pass
+#	if connect("game_over", self, "_on_game_over"): pass
 	
 	for child in get_children():
 		if child.get_class() == "Control":
@@ -73,8 +73,8 @@ func _on_game_over():
 
 
 func _on_settings_change(new_settings : Dictionary):
-	get_parent()._on_settings_change(new_settings)
-#	emit_signal("settings_change", new_settings)
+#	get_parent()._on_settings_change(new_settings)
+	emit_signal("settings_change", new_settings)
 #	DebugPanel.update("settings", new_settings)
 
 

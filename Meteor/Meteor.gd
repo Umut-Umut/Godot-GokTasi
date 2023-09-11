@@ -46,7 +46,8 @@ func _ready():
 	
 	polygon_explosive.hide()
 	
-	if not connect("destroyed", self, "_meteor_destroyed"): pass
+#	if connect("destroyed", get_parent(), "_on_meteor_destroyed"): pass
+#	if connect("destroyed", self, "_on_meteor_destroyed"): pass
 	
 	if auto_create:
 		create_meteor()
@@ -75,7 +76,7 @@ func create_meteor():
 	is_destroyed = false
 
 
-func _meteor_destroyed():
+func meteor_destroyed():
 	drop_chunk(polygon_meteor.polygon)
 	set_meteor_polygon(PoolVector2Array())
 	
@@ -84,6 +85,9 @@ func _meteor_destroyed():
 	
 	if auto_create_when_destroy:
 		create_meteor()
+	
+	emit_signal("destroyed")
+#	get_parent()._on_meteor_destroyed()
 
 
 func drop_chunk(chunk_points : PoolVector2Array):
@@ -124,10 +128,12 @@ func explode(collision_position : Vector2):
 		set_meteor_polygon(clip_polygon[big_polygon_index])
 		
 		
-		if PolygonMath.get_area(clip_polygon[big_polygon_index]) < 1000:			
-			emit_signal("destroyed")
+		if PolygonMath.get_area(clip_polygon[big_polygon_index]) < 1000:
+			meteor_destroyed()
+#			emit_signal("destroyed")
 	else:
-		emit_signal("destroyed")
+		meteor_destroyed()
+#		emit_signal("destroyed")
 
 
 func set_meteor_polygon(points : PoolVector2Array, is_update_back : bool = false):
