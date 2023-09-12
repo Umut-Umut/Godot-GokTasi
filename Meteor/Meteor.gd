@@ -13,7 +13,7 @@ export (int, 8, 500) var radius : int = 64
 export (bool) var auto_create = true
 export (bool) var auto_create_when_destroy = true
 
-
+onready var chunk_scene = preload("res://Chunk/Chunk.tscn")
 onready var chunks = $Chunks
 
 onready var polygon_explosive = $Explosive
@@ -21,7 +21,6 @@ onready var polygon_meteor = $Meteor
 onready var polygon_collision = $CollisionPolygon2D
 onready var polygon_meteor_background = $Meteor/Bacground
 onready var polygon_area_collision = $ExplosiveDetector/CollisionPolygon2D
-onready var chunk_scene = preload("res://Chunk/Chunk.tscn")
 
 
 var new_chunk
@@ -55,6 +54,7 @@ func _ready():
 
 func _physics_process(delta):
 	rotate(delta)
+	DebugPanel.update("CHunks size", chunks.get_child_count())
 
 
 func collision(collision_position : Vector2):
@@ -68,7 +68,7 @@ func create_meteor():
 	set_meteor_polygon(PolygonMath.calc_circle_points(num_segments, radius), true)
 	
 	
-	polygon_explosive.polygon = PolygonMath.calc_circle_points(12, 32)
+	polygon_explosive.polygon = PolygonMath.calc_circle_points(8, 32)
 	explosive_local_points = polygon_explosive.polygon
 	
 	
