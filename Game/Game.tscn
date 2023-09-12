@@ -15,7 +15,6 @@ current = true
 
 [node name="Meteor" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -320 )
-num_segments = 12
 radius = 86
 
 [node name="SpaceShip" parent="." instance=ExtResource( 3 )]

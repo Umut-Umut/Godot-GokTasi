@@ -59,7 +59,7 @@ func _ready():
 
 func _physics_process(delta):
 	rotate(delta)
-	DebugPanel.update("CHunks size", chunks.get_child_count())
+#	DebugPanel.update("CHunks size", chunks.get_child_count())
 
 
 func collision(collision_position : Vector2):
