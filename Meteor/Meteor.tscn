@@ -25,6 +25,7 @@ polygon = PoolVector2Array( -8, 0, 0, -8, 8, 0, 0, 8 )
 polygon = PoolVector2Array( 0, -16, -16, 0, 0, 16, 16, 0 )
 
 [node name="ExplosiveDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 8
 monitoring = false

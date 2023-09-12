@@ -22,8 +22,8 @@ onready var polygon_collision = $CollisionPolygon2D
 onready var polygon_meteor_background = $Meteor/Bacground
 onready var polygon_area_collision = $ExplosiveDetector/CollisionPolygon2D
 
-
-var new_chunk
+var chunk_num : int = 1
+var chunk_iter : int = 0
 
 var big_polygon : PoolVector2Array
 var big_polygon_area : float = 0
@@ -42,6 +42,11 @@ var explosive_local_points : PoolVector2Array
 
 func _ready():
 	randomize()
+	
+	for _i in range(chunk_num):
+		var chunk = chunk_scene.instance()
+		chunks.add_child(chunk)
+		
 	
 	polygon_explosive.hide()
 	
@@ -91,16 +96,27 @@ func meteor_destroyed():
 
 
 func drop_chunk(chunk_points : PoolVector2Array):
-	new_chunk = chunk_scene.instance()
-	var new_poly = Polygon2D.new()
+#	var new_chunk = chunk_scene.instance()
+#	var new_poly = Polygon2D.new()
+	if chunk_num <= 0:
+		return
 	
-	new_poly.color = polygon_meteor.color
-	new_poly.polygon = chunk_points
+	var chunk : Chunk = chunks.get_child(chunk_iter)
+	chunk_iter = (chunk_iter + 1) % chunk_num
 	
-	new_chunk.add_child(new_poly)
+	chunk.polygon.color = polygon_meteor.color
+	chunk.polygon.polygon = chunk_points
 	
-	new_chunk.gravity_scale = rand_range(1, 2)
-	chunks.call_deferred("add_child", new_chunk)
+	chunk.position = Vector2.ZERO
+	chunk.show()
+#	new_poly.color = polygon_meteor.color
+#	new_poly.polygon = chunk_points
+	
+#	new_chunk.add_child(new_poly)
+	
+#	new_chunk.gravity_scale = rand_range(1, 2)
+#	chunks.call_deferred("add_child", new_chunk)
+	
 
 
 func explode(collision_position : Vector2):

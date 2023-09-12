@@ -27,7 +27,10 @@ func _ready():
 	disable()
 
 
+var i = 0
 func _physics_process(delta : float):
+#	DebugPanel.update(self.name, i)
+	i+=1
 	velocity = direction * speed
 	collide = move_and_collide(velocity * delta)
 
@@ -52,8 +55,8 @@ func enable(_direction : Vector2, _position : Vector2):
 	
 	$Timer.start()
 	
-	set_deferred("physics_process", true)
-#	set_physics_process(true)
+#	set_deferred("physics_process", true)
+	set_physics_process(true)
 
 
 func disable(is_hide : bool = true):
@@ -67,8 +70,8 @@ func disable(is_hide : bool = true):
 	is_disabled = true
 	$Timer.stop()
 
-	set_deferred("physics_process", false)
-#	set_physics_process(not is_hide)
+#	set_deferred("physics_process", false)
+	set_physics_process(false)
 
 
 func _on_Timer_timeout():
