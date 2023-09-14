@@ -9,7 +9,6 @@ extents = Vector2( 4, 4 )
 collision_layer = 8
 collision_mask = 6
 script = ExtResource( 2 )
-speed = 500
 
 [node name="Polygon2D2" type="Polygon2D" parent="."]
 color = Color( 0.921569, 0.270588, 0.372549, 1 )

@@ -10,5 +10,3 @@ script = ExtResource( 2 )
 [node name="Game" parent="." instance=ExtResource( 3 )]
 
 [node name="GUI" parent="." instance=ExtResource( 1 )]
-
-[connection signal="start_game" from="GUI" to="." method="_on_GUI_start_game"]

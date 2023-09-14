@@ -19,7 +19,6 @@ z_index = -1
 color = Color( 0.505882, 0.584314, 0.627451, 1 )
 
 [node name="Explosive" type="Polygon2D" parent="."]
-polygon = PoolVector2Array( -8, 0, 0, -8, 8, 0, 0, 8 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 0, -16, -16, 0, 0, 16, 16, 0 )

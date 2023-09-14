@@ -10,7 +10,7 @@ signal collision(collision_position)
 onready var node_collision = $CollisionShape2D
 
 
-export var speed : int = 100
+var speed : int = 500
 
 
 var velocity : Vector2 = Vector2.ZERO
@@ -27,12 +27,9 @@ func _ready():
 	disable()
 
 
-var i = 0
 func _physics_process(delta : float):
-#	DebugPanel.update(self.name, i)
-	i+=1
-	velocity = direction * speed
-	collide = move_and_collide(velocity * delta)
+	velocity = direction * (speed * delta)
+	collide = move_and_collide(velocity)
 
 	if collide:
 		disable()

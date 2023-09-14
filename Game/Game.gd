@@ -67,5 +67,5 @@ func _on_BulletTravelLimit_body_entered(body):
 	if body is Bullet:
 		body.disable()
 	
-	if body is Chunk:
-		body.disable()
+#	if body is Chunk:
+#		body.disable()

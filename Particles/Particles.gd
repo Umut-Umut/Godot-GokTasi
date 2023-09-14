@@ -13,11 +13,12 @@ var temp_particle : CPUParticles2D
 func _ready():
 	particle.emitting = false
 	particle.one_shot = true
-	particle.amount = 64
-	particle.linear_accel = -85
+	particle.amount = 16
+#	particle.linear_accel = -80
 	particle.linear_accel_random = true
-	particle.direction = Vector2.DOWN + Vector2.LEFT
-	particle.spread = 90
+	particle.direction = Vector2.DOWN
+#	particle.direction = Vector2.ZERO
+	particle.spread = 10
 	particle.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
 	particle.emission_sphere_radius = 8
 	particle.scale *= 3
@@ -25,10 +26,10 @@ func _ready():
 	particle.lifetime = 5
 	particle.lifetime_randomness = true
 	particle.explosiveness = true
-	particle.initial_velocity = 100
+	particle.initial_velocity = 90
 	particle.initial_velocity_random = true
 	particle.z_index = 1
-#	particle.modulate = Color.cyan
+	particle.color = Color(0.921569, 0.970588, 0.972549)
 	
 	particle_fire.emitting = false
 	particle_fire.one_shot = true
