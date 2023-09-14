@@ -25,7 +25,7 @@ var state : Control
 
 
 func _ready():
-	if settings.connect("settings_change", self, "_on_settings_change"): pass
+#	if settings.connect("settings_change", self, "_on_settings_change"): pass
 #	if connect("settings_change", get_parent(), "_on_settings_change"): pass
 #	if connect("game_over", self, "_on_game_over"): pass
 	
@@ -72,12 +72,6 @@ func _on_game_over():
 #	$GameOver/ReturnTitle.disabled = false
 
 
-func _on_settings_change(new_settings : Dictionary):
-#	get_parent()._on_settings_change(new_settings)
-	emit_signal("settings_change", new_settings)
-#	DebugPanel.update("settings", new_settings)
-
-
 func _on_Quit_button_down():
 	settings.save_data()
 	get_tree().quit()
@@ -85,3 +79,13 @@ func _on_Quit_button_down():
 func _exit_tree():
 	settings.save_data()
 
+
+
+func _on_Settings_settings_change(new_settings):
+#	get_parent()._on_settings_change(new_settings)
+	emit_signal("settings_change", new_settings)
+#	DebugPanel.update("settings", new_settings)
+
+
+func _on_Settings__return():
+	update(title)

@@ -4,7 +4,7 @@
 [ext_resource path="res://Font/Arial.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Font/Arial_Title.tres" type="DynamicFont" id=3]
 [ext_resource path="res://GUI/GameOver.gd" type="Script" id=4]
-[ext_resource path="res://GUI/Settings.gd" type="Script" id=5]
+[ext_resource path="res://GUI/settings/Settings.tscn" type="PackedScene" id=5]
 [ext_resource path="res://GUI/Title.gd" type="Script" id=6]
 [ext_resource path="res://Images/Gear.png" type="Texture" id=7]
 [ext_resource path="res://Images/ReturnMenu.png" type="Texture" id=8]
@@ -167,126 +167,10 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Settings" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Settings/VBoxContainer"]
-margin_top = 356.0
-margin_right = 640.0
-margin_bottom = 464.0
-custom_fonts/font = ExtResource( 3 )
-text = "Ayarlar"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="Radius" type="HBoxContainer" parent="Settings/VBoxContainer"]
-margin_top = 468.0
-margin_right = 640.0
-margin_bottom = 532.0
-mouse_filter = 2
-custom_constants/separation = 25
-alignment = 1
-
-[node name="Label" type="Label" parent="Settings/VBoxContainer/Radius"]
-margin_left = 63.0
-margin_top = 14.0
-margin_right = 172.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = "Yarıçap"
-
-[node name="HSliderRad" type="HSlider" parent="Settings/VBoxContainer/Radius"]
-margin_left = 197.0
-margin_right = 497.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 300, 64 )
-mouse_filter = 1
-min_value = 64.0
-max_value = 500.0
-value = 64.0
-
-[node name="SlideValue" type="Label" parent="Settings/VBoxContainer/Radius"]
-margin_left = 522.0
-margin_top = 14.0
-margin_right = 576.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 54, 0 )
-custom_fonts/font = ExtResource( 2 )
-text = "000"
-
-[node name="SideNum" type="HBoxContainer" parent="Settings/VBoxContainer"]
-margin_top = 536.0
-margin_right = 640.0
-margin_bottom = 600.0
-mouse_filter = 2
-custom_constants/separation = 25
-alignment = 1
-
-[node name="Label" type="Label" parent="Settings/VBoxContainer/SideNum"]
-margin_left = 26.0
-margin_top = 14.0
-margin_right = 210.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = "Kenar Sayısı"
-
-[node name="HSliderSide" type="HSlider" parent="Settings/VBoxContainer/SideNum"]
-margin_left = 235.0
-margin_right = 535.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 300, 64 )
-mouse_filter = 1
-min_value = 12.0
-value = 12.0
-
-[node name="SlideValue" type="Label" parent="Settings/VBoxContainer/SideNum"]
-margin_left = 560.0
-margin_top = 14.0
-margin_right = 614.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 54, 0 )
-custom_fonts/font = ExtResource( 2 )
-text = "000"
-
-[node name="ReturnTitle" type="TextureButton" parent="Settings/VBoxContainer"]
-margin_top = 604.0
-margin_right = 640.0
-margin_bottom = 668.0
-rect_min_size = Vector2( 0, 64 )
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="Settings/VBoxContainer/ReturnTitle"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 2 )
-text = "Menüye Dön"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="change_timer" type="Timer" parent="Settings"]
-wait_time = 0.05
+[node name="Settings" parent="." instance=ExtResource( 5 )]
+visible = false
 
 [node name="GameOver" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -321,6 +205,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 64 )
+mouse_filter = 1
 disabled = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -376,9 +261,7 @@ valign = 1
 [connection signal="pressed" from="Title/Start" to="." method="_on_Start_pressed"]
 [connection signal="button_down" from="Title/Settings" to="." method="_on_Settings_button_down"]
 [connection signal="button_down" from="Title/Quit" to="." method="_on_Quit_button_down"]
-[connection signal="value_changed" from="Settings/VBoxContainer/Radius/HSliderRad" to="Settings" method="_on_HSliderRad_value_changed"]
-[connection signal="value_changed" from="Settings/VBoxContainer/SideNum/HSliderSide" to="Settings" method="_on_HSliderSide_value_changed"]
-[connection signal="button_down" from="Settings/VBoxContainer/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
-[connection signal="timeout" from="Settings/change_timer" to="Settings" method="_on_change_timer_timeout"]
+[connection signal="_return" from="Settings" to="." method="_on_Settings__return"]
+[connection signal="settings_change" from="Settings" to="." method="_on_Settings_settings_change"]
 [connection signal="button_down" from="GameOver/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
 [connection signal="button_down" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]

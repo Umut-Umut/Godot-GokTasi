@@ -1,6 +1,7 @@
 extends Control
 
 signal settings_change(new_settings)
+signal _return
 
 onready var radius_slider = $VBoxContainer/Radius/HSliderRad
 onready var side_slider = $VBoxContainer/SideNum/HSliderSide
@@ -83,3 +84,8 @@ func load_data() -> bool:
 func hide():
 	.hide()
 	timer_change.stop()
+
+
+func _on_ReturnTitle_pressed():
+	save_data()
+	emit_signal("_return")
