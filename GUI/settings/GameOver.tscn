@@ -35,7 +35,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ReturnTitle" type="TextureButton" parent="."]
+[node name="Return" type="TextureButton" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 64 )
@@ -44,7 +44,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="ReturnTitle"]
+[node name="Label" type="Label" parent="Return"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -60,5 +60,5 @@ __meta__ = {
 wait_time = 3.0
 one_shot = true
 
-[connection signal="pressed" from="ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
+[connection signal="pressed" from="Return" to="." method="_on_Return_pressed"]
 [connection signal="timeout" from="ReturnTimer" to="." method="_on_ReturnTimer_timeout"]

@@ -2,10 +2,7 @@ extends Control
 
 signal press_return
 
-#func show_message(msg : String):
-#	$VBoxContainer/Title.text = msg
-
-func _on_ReturnTitle_pressed():
+func _on_Return_pressed():
 	emit_signal("press_return")
 
 func show():

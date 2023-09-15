@@ -13,7 +13,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ReturnTitle" type="TextureButton" parent="."]
+[node name="Return" type="TextureButton" parent="."]
 process_priority = -2
 anchor_left = 1.0
 anchor_right = 1.0
@@ -26,7 +26,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="ReturnTitle"]
+[node name="Label" type="Label" parent="Return"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -35,4 +35,4 @@ text = "Menu"
 align = 1
 valign = 1
 
-[connection signal="pressed" from="ReturnTitle" to="." method="_on_ReturnTitle_pressed"]
+[connection signal="pressed" from="Return" to="." method="_on_Return_pressed"]
