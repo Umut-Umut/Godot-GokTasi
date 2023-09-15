@@ -48,13 +48,13 @@ func update(new_state : Control):
 			m.hide()
 
 
-func _on_Start_pressed():
-	update(ingame)
-	emit_signal("start_game")
+#func _on_Start_pressed():
+#	update(ingame)
+#	emit_signal("start_game")
 
 
-func _on_Settings_button_down():
-	update(settings)
+#func _on_Settings_button_down():
+#	update(settings)
 
 
 func _on_ReturnTitle_button_down():
@@ -72,9 +72,9 @@ func _on_game_over():
 #	$GameOver/ReturnTitle.disabled = false
 
 
-func _on_Quit_button_down():
-	settings.save_data()
-	get_tree().quit()
+#func _on_Quit_button_down():
+#	settings.save_data()
+#	get_tree().quit()
 
 func _exit_tree():
 	settings.save_data()
@@ -89,3 +89,17 @@ func _on_Settings_settings_change(new_settings):
 
 func _on_Settings__return():
 	update(title)
+
+
+func _on_Title_press_start():
+	update(ingame)
+	emit_signal("start_game")
+
+
+func _on_Title_press_settings():
+	update(settings)
+
+
+func _on_Title_press_quit():
+	settings.save_data()
+	get_tree().quit()

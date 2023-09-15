@@ -1,14 +1,14 @@
 extends Control
 
+signal press_start
+signal press_settings
+signal press_quit
 
-onready var button_continue = $VBoxContainer/Continue
+func _on_Start_pressed():
+	emit_signal("press_start")
 
+func _on_Settings_pressed():
+	emit_signal("press_settings")
 
-func _ready():
-	pass
-#	Gui.connect("return_menu", self, "return_menu")
-
-
-func return_menu():
-	button_continue.show()
-
+func _on_Quit_pressed():
+	emit_signal("press_quit")
