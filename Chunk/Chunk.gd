@@ -9,8 +9,8 @@ onready var polygon2d : Polygon2D = $Polygon2D
 #	mode = RigidBody2D.MODE_STATIC
 
 
-func _process(delta):
-	pass
+#func _process(_delta):
+#	pass
 
 
 func reset(pos : Vector2):

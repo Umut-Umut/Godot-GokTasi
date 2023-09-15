@@ -57,9 +57,9 @@ func update(new_state : Control):
 #	update(settings)
 
 
-func _on_ReturnTitle_button_down():
-	update(title)
-	emit_signal("return_menu")
+#func _on_ReturnTitle_button_down():
+#	update(title)
+#	emit_signal("return_menu")
 	
 #	$GameOver/ReturnTitle.disabled = true
 
@@ -87,8 +87,8 @@ func _on_Settings_settings_change(new_settings):
 #	DebugPanel.update("settings", new_settings)
 
 
-func _on_Settings__return():
-	update(title)
+#func _on_Settings__return():
+#	update(title)
 
 
 func _on_Title_press_start():
@@ -103,3 +103,13 @@ func _on_Title_press_settings():
 func _on_Title_press_quit():
 	settings.save_data()
 	get_tree().quit()
+
+
+func _on_Settings_press_return():
+	update(title)
+	emit_signal("return_menu")
+
+
+func _on_InGame_press_return():
+	update(title)
+	emit_signal("return_menu")

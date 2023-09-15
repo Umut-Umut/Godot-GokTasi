@@ -1,7 +1,7 @@
 extends Control
 
 signal settings_change(new_settings)
-signal _return
+signal press_return
 
 onready var radius_slider = $VBoxContainer/Radius/HSliderRad
 onready var side_slider = $VBoxContainer/SideNum/HSliderSide
@@ -33,7 +33,6 @@ func _ready():
 	side_slider_label.text = str(settings_data["side"])
 	side_slider.value = settings_data["side"]
 
-
 func _on_HSliderRad_value_changed(value):
 	radius_slider_label.text = str(value)
 	settings_data["radius"] = value
@@ -43,7 +42,6 @@ func _on_HSliderRad_value_changed(value):
 #	if timer_change.is_stopped():
 #		timer_change.start()
 
-
 func _on_HSliderSide_value_changed(value):
 	side_slider_label.text = str(value)	
 	settings_data["side"] = value
@@ -52,7 +50,6 @@ func _on_HSliderSide_value_changed(value):
 #	is_settings_change = true
 #	if timer_change.is_stopped():
 #		timer_change.start()
-
 
 func _on_change_timer_timeout():
 	pass
@@ -88,4 +85,4 @@ func hide():
 
 func _on_ReturnTitle_pressed():
 	save_data()
-	emit_signal("_return")
+	emit_signal("press_return")

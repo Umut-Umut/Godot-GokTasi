@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://GUI/GUI.gd" type="Script" id=1]
 [ext_resource path="res://Font/Arial.tres" type="DynamicFont" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://GUI/GameOver.gd" type="Script" id=4]
 [ext_resource path="res://GUI/settings/Settings.tscn" type="PackedScene" id=5]
 [ext_resource path="res://GUI/settings/Title.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Images/ReturnMenu.png" type="Texture" id=8]
-[ext_resource path="res://GUI/InGame.gd" type="Script" id=10]
+[ext_resource path="res://GUI/settings/InGame.tscn" type="PackedScene" id=7]
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -68,44 +67,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="InGame" type="Control" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-script = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ReturnTitle" type="TextureButton" parent="InGame"]
-process_priority = -2
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -128.0
-margin_bottom = 128.0
-texture_normal = ExtResource( 8 )
-expand = true
-stretch_mode = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="InGame/ReturnTitle"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 2 )
-text = "Menu"
-align = 1
-valign = 1
-
 [node name="Title" parent="." instance=ExtResource( 6 )]
 
-[connection signal="_return" from="Settings" to="." method="_on_Settings__return"]
+[node name="InGame" parent="." instance=ExtResource( 7 )]
+
+[connection signal="press_return" from="Settings" to="." method="_on_Settings_press_return"]
 [connection signal="settings_change" from="Settings" to="." method="_on_Settings_settings_change"]
-[connection signal="button_down" from="GameOver/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
-[connection signal="button_down" from="InGame/ReturnTitle" to="." method="_on_ReturnTitle_button_down"]
 [connection signal="press_quit" from="Title" to="." method="_on_Title_press_quit"]
 [connection signal="press_settings" from="Title" to="." method="_on_Title_press_settings"]
 [connection signal="press_start" from="Title" to="." method="_on_Title_press_start"]
+[connection signal="press_return" from="InGame" to="." method="_on_InGame_press_return"]
