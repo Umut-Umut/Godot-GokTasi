@@ -1,14 +1,16 @@
 extends Control
 
+signal press_return
 
-func show_message(msg : String):
-	$VBoxContainer/Title.text = msg
+#func show_message(msg : String):
+#	$VBoxContainer/Title.text = msg
 
+func _on_ReturnTitle_pressed():
+	emit_signal("press_return")
 
-func _input(event):
-	if event is InputEventScreenTouch:
-		if event.is_pressed():
-			pass
-#			if event.position.y > dont_touch_area.y or event.position.x < dont_touch_area.x:
-#				emit_signal("screen_touch", state)
-#			DebugPanel.update("GameOVer input", OS.get_system_time_msecs())
+func show():
+	.show()
+	$ReturnTimer.start()
+
+func _on_ReturnTimer_timeout():
+	emit_signal("press_return")
