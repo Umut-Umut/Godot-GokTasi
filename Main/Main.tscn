@@ -13,4 +13,3 @@ script = ExtResource( 2 )
 
 [connection signal="game_over" from="Game" to="GUI" method="_on_Game_game_over"]
 [connection signal="settings_change" from="GUI" to="Game" method="_on_GUI_settings_change"]
-[connection signal="start_game" from="GUI" to="." method="_on_GUI_start_game"]

@@ -41,3 +41,6 @@ func _on_GameArea_body_exited(body):
 
 func _on_GameArea_ready():
 	get_node("GameArea/CollisionShape2D").shape.extents = OS.get_screen_size()
+
+func _on_GUI_start_game():
+	start()

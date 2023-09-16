@@ -16,9 +16,3 @@ var GAME : Game
 func _ready():
 	GUI = $GUI
 	GAME = $Game
-
-func _on_GUI_start_game(only_create_meteor : bool = false):
-	if only_create_meteor:
-		GAME.meteor.create_meteor()
-		return
-	GAME.start()
