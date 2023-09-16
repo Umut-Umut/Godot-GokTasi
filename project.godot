@@ -87,7 +87,6 @@ DebugPanel="*res://Debug Panel/DebugPanel.tscn"
 
 window/size/width=640
 window/size/height=1024
-window/size/resizable=false
 window/size/fullscreen=true
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
@@ -104,11 +103,10 @@ pointing/emulate_touch_from_mouse=true
 [layer_names]
 
 2d_physics/layer_1="Ship"
-2d_physics/layer_2="MeteorArea"
-2d_physics/layer_3="BulletTravelLimitArea"
+2d_physics/layer_2="Meteor"
+2d_physics/layer_3="GameArea"
 2d_physics/layer_4="Bullet"
 2d_physics/layer_5="Chunk"
-2d_physics/layer_6="ChunkTravelLimitArea"
 
 [physics]
 

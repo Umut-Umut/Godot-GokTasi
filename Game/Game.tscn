@@ -4,8 +4,7 @@
 [ext_resource path="res://Meteor/Meteor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://SpaceShip/SpaceShip.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 832, 608 )
+[sub_resource type="RectangleShape2D" id=2]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -20,31 +19,14 @@ radius = 86
 [node name="SpaceShip" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 448 )
 
-[node name="BulletTravelLimit" type="Area2D" parent="."]
-position = Vector2( 0, -1440 )
+[node name="GameArea" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 8
-monitorable = false
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletTravelLimit"]
-shape = SubResource( 1 )
-
-[node name="ChunkTravelLimit" type="Area2D" parent="."]
-position = Vector2( 0, 1536 )
-collision_layer = 32
-collision_mask = 16
-monitorable = false
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ChunkTravelLimit"]
-shape = SubResource( 1 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea"]
+shape = SubResource( 2 )
 
 [connection signal="destroyed" from="Meteor" to="." method="_on_Meteor_destroyed"]
 [connection signal="shot" from="SpaceShip" to="." method="_on_SpaceShip_shot"]
-[connection signal="body_entered" from="BulletTravelLimit" to="." method="_on_BulletTravelLimit_body_entered"]
-[connection signal="body_entered" from="ChunkTravelLimit" to="." method="_on_BulletTravelLimit_body_entered"]
+[connection signal="body_exited" from="GameArea" to="." method="_on_GameArea_body_exited"]
+[connection signal="ready" from="GameArea" to="." method="_on_GameArea_ready"]
