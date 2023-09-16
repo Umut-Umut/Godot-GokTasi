@@ -35,8 +35,3 @@ polygon = PoolVector2Array( 24, 56, 24, 64, 32, 56, 40, 64, 40, 56, 56, 48, 32, 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 disabled = true
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.255
-
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

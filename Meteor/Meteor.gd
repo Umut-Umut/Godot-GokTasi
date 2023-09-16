@@ -4,8 +4,6 @@ extends StaticBody2D
 
 signal destroyed
 
-# ExplosiveDetector disabled
-
 export (int, 3, 128) var num_segments : int = 12
 export (int, 8, 500) var radius : int = 64
 export (bool) var auto_create = true
@@ -18,7 +16,6 @@ onready var polygon_explosive = $Explosive
 onready var polygon_meteor = $Meteor
 onready var polygon_collision = $CollisionPolygon2D
 onready var polygon_meteor_background = $Meteor/Bacground
-onready var polygon_area_collision = $ExplosiveDetector/CollisionPolygon2D
 
 var chunk_held : Chunk
 var chunk_num : int = 1
@@ -39,16 +36,7 @@ var explosive_local_points : PoolVector2Array
 
 func _ready():
 	randomize()
-	
-#	for _i in range(chunk_num):
-#		var chunk = chunk_scene.instance()
-#		chunks.add_child(chunk)
-		
-	
 	polygon_explosive.hide()
-	
-#	if connect("destroyed", get_parent(), "_on_meteor_destroyed"): pass
-#	if connect("destroyed", self, "_on_meteor_destroyed"): pass
 	
 	if auto_create:
 		create_meteor()
@@ -95,19 +83,6 @@ func drop_chunk(chunk_points : PoolVector2Array):
 	chunk_held.polygon2d.color = $Meteor.color
 	chunk_held.polygon2d.polygon = chunk_points
 	
-#	chunk_held = chunks.get_child(chunk_iter)
-#	chunk_iter = (chunk_iter + 1) % chunk_num
-#
-#	chunk_held.polygon2d.color = $Meteor.color
-#	# explode içinde daha önceden koordinatlarla oynamışım
-#	var new = []
-#	for p in chunk_points:
-#		new.append(p.rotated(deg2rad(self.rotation_degrees)))
-#
-#	chunk_held.polygon2d.polygon = new
-#	chunk_held.reset(self.position)
-	
-
 func explode(collision_position : Vector2):
 	polygon_explosive.global_position = collision_position
 	
@@ -159,10 +134,3 @@ func new_settings(settings : Dictionary):
 	if is_settings_change:
 		create_meteor()
 		is_settings_change = false
-
-func _on_ExplosiveDetector_body_entered(body):
-	# Area2D(ExplosiveDetector) disable
-	if body is Bullet:
-		body.disable()
-		explode(body.global_position)
-	
