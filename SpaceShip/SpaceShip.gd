@@ -24,6 +24,7 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventScreenTouch:
 		if event.pressed and event.index == 0:
+			DebugPanel.update("Ship Fire")
 			fire()
 
 func fire():

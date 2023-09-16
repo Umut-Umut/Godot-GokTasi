@@ -15,8 +15,11 @@ visible = false
 [node name="Title" parent="." instance=ExtResource( 6 )]
 
 [node name="InGame" parent="." instance=ExtResource( 7 )]
+visible = false
+mouse_filter = 2
 
 [node name="GameOver" parent="." instance=ExtResource( 2 )]
+visible = false
 
 [connection signal="press_return" from="Settings" to="." method="_on_Settings_press_return"]
 [connection signal="settings_change" from="Settings" to="." method="_on_Settings_settings_change"]
