@@ -22,7 +22,8 @@ var chunk_held : Chunk
 var big_polygon : PoolVector2Array
 var big_polygon_area : float = 0
 var polygon_area : float = 0
-var big_polygon_index : int = 0
+var main_polygon_index : int = 0
+
 
 var is_created : bool = false
 var is_settings_change : bool = false
@@ -82,20 +83,22 @@ func explode(collision_position : Vector2):
 		meteor_destroyed()
 		return
 	
-	big_polygon_area = 0
-	for i in range(clip_polygon.size()):
-		polygon_area = PolygonMath.get_area(clip_polygon[i])
-		if polygon_area > big_polygon_area:
-			big_polygon_area = polygon_area
-			big_polygon_index = i
+	main_polygon_index = 0
+	if clip_polygon.size() > 1:
+		big_polygon_area = 0
+		for i in range(clip_polygon.size()):
+			polygon_area = PolygonMath.get_area(clip_polygon[i])
+			if polygon_area > big_polygon_area:
+				big_polygon_area = polygon_area
+				main_polygon_index = i
 		
-	for i in range(clip_polygon.size()):
-		if i != big_polygon_index:
-			drop_chunk(clip_polygon[i])
+		for i in range(clip_polygon.size()):
+			if i != main_polygon_index:
+				drop_chunk(clip_polygon[i])
 		
-	set_meteor_polygon(clip_polygon[big_polygon_index])
+	set_meteor_polygon(clip_polygon[main_polygon_index])
 	
-	if PolygonMath.get_area(clip_polygon[big_polygon_index]) < 1000:
+	if PolygonMath.get_area(clip_polygon[main_polygon_index]) < 1000:
 		meteor_destroyed()
 
 func set_meteor_polygon(points : PoolVector2Array, is_update_back : bool = false):
