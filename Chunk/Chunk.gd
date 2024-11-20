@@ -23,9 +23,9 @@ func reset(pos : Vector2):
 	state.transform.origin = pos
 	
 	
-	DebugPanel.update("Chunk Rotation", rotation)
-	DebugPanel.update("Angular Dump", state.total_angular_damp)
-	DebugPanel.update("Linear Dump", state.total_linear_damp)
+#	DebugPanel.update("Chunk Rotation", rotation)
+#	DebugPanel.update("Angular Dump", state.total_angular_damp)
+#	DebugPanel.update("Linear Dump", state.total_linear_damp)
 
 	$Timer.start()
 

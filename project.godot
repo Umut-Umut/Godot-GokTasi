@@ -81,7 +81,6 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalParticles="*res://Particles/Particles.tscn"
-DebugPanel="*res://Debug Panel/DebugPanel.tscn"
 
 [display]
 
